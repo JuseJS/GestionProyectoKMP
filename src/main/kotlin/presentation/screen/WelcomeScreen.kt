@@ -1,10 +1,8 @@
 package presentation.screen
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
@@ -14,9 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
-import presentation.components.ProjectCard
-import presentation.components.ProjectData
-import presentation.components.SidebarMenu
+import presentation.components.*
 import presentation.theme.Theme
 import java.time.LocalDate
 
@@ -34,14 +30,16 @@ class WelcomeScreen : Screen {
                     name = "Sistema de Gestión de Inventario",
                     description = "Desarrollo de un sistema completo para la gestión de inventario con seguimiento en tiempo real",
                     startDate = LocalDate.of(2024, 1, 15),
-                    clientCompany = "TechnoSolutions S.A."
+                    clientCompany = "TechnoSolutions S.A.",
+                    isUserAssigned = true
                 ),
                 ProjectData(
                     id = 2,
                     name = "App de Delivery",
                     description = "Aplicación móvil para servicio de entrega a domicilio con tracking en tiempo real",
                     startDate = LocalDate.of(2024, 2, 1),
-                    clientCompany = "FastDelivery Inc."
+                    clientCompany = "FastDelivery Inc.",
+                    isUserAssigned = true
                 )
             )
         }
@@ -54,7 +52,8 @@ class WelcomeScreen : Screen {
                     description = "Diseño y desarrollo de portal web corporativo con integración de CMS",
                     startDate = LocalDate.of(2023, 10, 1),
                     clientCompany = "InnovaCorp",
-                    endDate = LocalDate.of(2024, 1, 15)
+                    endDate = LocalDate.of(2024, 1, 15),
+                    isUserAssigned = true
                 ),
                 ProjectData(
                     id = 4,
@@ -62,7 +61,8 @@ class WelcomeScreen : Screen {
                     description = "Sistema de facturación electrónica con integración a SAT",
                     startDate = LocalDate.of(2023, 8, 15),
                     clientCompany = "ContaPlus",
-                    endDate = LocalDate.of(2023, 12, 20)
+                    endDate = LocalDate.of(2023, 12, 20),
+                    isUserAssigned = false
                 )
             )
         }
@@ -93,48 +93,7 @@ class WelcomeScreen : Screen {
                     ) {
                         // Título y datos del usuario
                         item {
-                            Column(
-                                verticalArrangement = Arrangement.spacedBy(24.dp)
-                            ) {
-                                Text(
-                                    text = "Welcome",
-                                    style = MaterialTheme.typography.h4,
-                                    color = Theme.materialColors.onBackground
-                                )
-
-                                // Card de información del usuario
-                                Card(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .background(Theme.colors.surfaceContainer),
-                                    elevation = 4.dp,
-                                    shape = RoundedCornerShape(16.dp)
-                                ) {
-                                    Row(
-                                        modifier = Modifier.padding(24.dp),
-                                        verticalAlignment = Alignment.CenterVertically,
-                                        horizontalArrangement = Arrangement.spacedBy(12.dp)
-                                    ) {
-                                        Icon(
-                                            imageVector = Icons.Default.Person,
-                                            contentDescription = "Usuario",
-                                            tint = Theme.materialColors.primary
-                                        )
-                                        Column {
-                                            Text(
-                                                text = "¡Bienvenido, Carlos!",
-                                                style = MaterialTheme.typography.h6,
-                                                color = Theme.materialColors.onBackground
-                                            )
-                                            Text(
-                                                text = "Rol: Gestor de Proyectos",
-                                                style = MaterialTheme.typography.subtitle1,
-                                                color = Theme.colors.textSecondary
-                                            )
-                                        }
-                                    }
-                                }
-                            }
+                            WelcomeSection()
                         }
 
                         // Proyectos Activos
@@ -151,12 +110,8 @@ class WelcomeScreen : Screen {
                             ProjectCard(
                                 project = project,
                                 onClick = { clickedProject ->
-                                    // Aquí puedes manejar la navegación al detalle del proyecto
-                                    println("Proyecto clickeado: ${clickedProject.name}")
-                                    // Ejemplo:
-                                    // navigator?.push(ProjectDetailScreen(clickedProject.id))
-                                },
-                                modifier = Modifier.fillMaxWidth()
+                                    navigator?.push(ProjectDetailScreen(clickedProject))
+                                }
                             )
                         }
 
@@ -174,15 +129,50 @@ class WelcomeScreen : Screen {
                             ProjectCard(
                                 project = project,
                                 onClick = { clickedProject ->
-                                    // Aquí puedes manejar la navegación al detalle del proyecto
-                                    println("Proyecto clickeado: ${clickedProject.name}")
-                                    // Ejemplo:
-                                    // navigator?.push(ProjectDetailScreen(clickedProject.id))
-                                },
-                                modifier = Modifier.fillMaxWidth()
+                                    navigator?.push(ProjectDetailScreen(clickedProject))
+                                }
                             )
                         }
                     }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun WelcomeSection() {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(24.dp)
+    ) {
+        Text(
+            text = "Bienvenido",
+            style = MaterialTheme.typography.h4,
+            color = Theme.materialColors.onBackground
+        )
+
+        ContentCard {
+            Row(
+                modifier = Modifier.padding(24.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Person,
+                    contentDescription = "Usuario",
+                    tint = Theme.materialColors.primary
+                )
+                Column {
+                    Text(
+                        text = "¡Bienvenido, Carlos!",
+                        style = MaterialTheme.typography.h6,
+                        color = Theme.materialColors.onBackground
+                    )
+                    Text(
+                        text = "Rol: Gestor de Proyectos",
+                        style = MaterialTheme.typography.subtitle1,
+                        color = Theme.colors.textSecondary
+                    )
                 }
             }
         }
