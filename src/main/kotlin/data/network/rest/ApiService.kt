@@ -1,4 +1,27 @@
 package data.network.rest
 
-class ApiService {
+import data.network.rest.model.requests.CreateProjectRequest
+import data.network.rest.model.requests.LoginRequest
+import data.network.rest.model.responses.AuthResponse
+import data.network.rest.model.responses.ProjectResponse
+
+interface ApiService {
+    suspend fun login(request: LoginRequest): AuthResponse
+    suspend fun getProjects(): List<ProjectResponse>
+    suspend fun createProject(request: CreateProjectRequest): ProjectResponse
+    suspend fun getProjectDetails(id: String): ProjectResponse
+}
+
+class ApiServiceImpl(private val apiClient: ApiClient) : ApiService {
+    override suspend fun login(request: LoginRequest): AuthResponse =
+        apiClient.post("/auth/login", request)
+
+    override suspend fun getProjects(): List<ProjectResponse> =
+        apiClient.get("/projects")
+
+    override suspend fun createProject(request: CreateProjectRequest): ProjectResponse =
+        apiClient.post("/projects", request)
+
+    override suspend fun getProjectDetails(id: String): ProjectResponse =
+        apiClient.get("/projects/$id")
 }

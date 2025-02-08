@@ -1,4 +1,6 @@
 package domain.model
 
-class Employer {
-}
+data class Employer(
+    val name: String,
+    val role: String
+)

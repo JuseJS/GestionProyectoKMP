@@ -1,14 +1,13 @@
 package domain.model
 
-import java.time.LocalDate
+import java.time.LocalDateTime
 
-data class TaskData(
-    val id: Int,
+data class Task(
+    val id: String,
     val name: String,
     val description: String,
-    val estimatedHours: Int,
-    val creationDate: LocalDate,
-    val projectId: Int,
-    val assignedDeveloper: String? = null,
-    val completionDate: LocalDate? = null
+    val estimation: Int,
+    val creationDate: LocalDateTime,
+    val projectId: String,
+    val programmerId: String?
 )

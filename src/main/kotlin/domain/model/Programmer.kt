@@ -1,4 +1,7 @@
 package domain.model
 
-class Programmer {
-}
+data class Programmer(
+    val id: String,
+    val name: String,
+    val email: String
+)
