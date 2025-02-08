@@ -12,15 +12,19 @@ interface ApiService {
     suspend fun getProjectDetails(id: String): ProjectResponse
 }
 
-class ApiServiceImpl(private val apiClient: ApiClient) : ApiService {
+@PublishedApi
+internal class ApiServiceImpl @PublishedApi internal constructor(
+    private val apiClient: ApiClient
+) : ApiService {
+
     override suspend fun login(request: LoginRequest): AuthResponse =
-        apiClient.post("/auth/login", request)
+        apiClient.post<AuthResponse, _>("auth/login", request)
 
     override suspend fun getProjects(): List<ProjectResponse> =
         apiClient.get("/projects")
 
     override suspend fun createProject(request: CreateProjectRequest): ProjectResponse =
-        apiClient.post("/projects", request)
+        apiClient.post<ProjectResponse, _>("/projects", request)
 
     override suspend fun getProjectDetails(id: String): ProjectResponse =
         apiClient.get("/projects/$id")

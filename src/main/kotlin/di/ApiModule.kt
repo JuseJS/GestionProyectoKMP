@@ -3,32 +3,38 @@ package di
 import data.network.rest.ApiClient
 import data.network.rest.ApiService
 import data.network.rest.ApiServiceImpl
-import io.ktor.client.HttpClient
-import io.ktor.client.engine.cio.CIO
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.serialization.kotlinx.json.json
+import io.ktor.client.*
+import io.ktor.client.engine.cio.*
+import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.client.plugins.defaultRequest
+import io.ktor.client.plugins.logging.*
+import io.ktor.client.request.header
+import io.ktor.http.*
+import io.ktor.serialization.kotlinx.json.*
+import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 
-object ApiModule {
-    val module = module {
-        single {
-            HttpClient(CIO) {
-                install(ContentNegotiation) {
-                    json(Json {
-                        ignoreUnknownKeys = true
-                        prettyPrint = true
-                        isLenient = true
-                    })
-                }
-                install(Logging) {
-                    level = LogLevel.HEADERS
-                }
-                install(DefaultRequest) {
-                    header(HttpHeaders.ContentType, ContentType.Application.Json)
-                }
+val apiModule = module {
+    single {
+        HttpClient(CIO) {
+            install(ContentNegotiation) {
+                json(Json {
+                    prettyPrint = true
+                    isLenient = true
+                    ignoreUnknownKeys = true
+                })
+            }
+            install(Logging) {
+                level = LogLevel.ALL
+            }
+            defaultRequest {
+                url(ApiClient.BASE_URL)
+                header(HttpHeaders.ContentType, ContentType.Application.Json)
+                header(HttpHeaders.Accept, ContentType.Application.Json)
             }
         }
-        single { ApiClient(get()) }
-        single<ApiService> { ApiServiceImpl(get()) }
     }
+
+    single { ApiClient(get()) }
+    single<ApiService> { ApiServiceImpl(get()) }
 }

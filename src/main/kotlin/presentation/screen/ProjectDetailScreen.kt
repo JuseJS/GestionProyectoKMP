@@ -12,11 +12,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
-import domain.model.TaskData
+import domain.model.Task
 import presentation.components.*
 import presentation.components.task.TaskCard
 import presentation.theme.Theme
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 class ProjectDetailScreen(private val project: ProjectData) : Screen {
     @Composable
@@ -24,35 +25,37 @@ class ProjectDetailScreen(private val project: ProjectData) : Screen {
         val navigator = LocalNavigator.current
         var selectedItem by remember { mutableStateOf(1) }
 
-        // Datos de ejemplo de tareas
         val tasks = remember {
             listOf(
-                TaskData(
+                Task(
                     id = 1,
                     name = "Diseño de Base de Datos",
                     description = "Crear el esquema de la base de datos para el sistema",
-                    estimatedHours = 20,
-                    creationDate = LocalDate.of(2024, 1, 15),
+                    estimation = 20,
+                    creationDate = LocalDateTime.of(2024, 1, 15, 0, 0),
+                    endDate = LocalDateTime.of(2024, 1, 20, 0, 0),
                     projectId = project.id,
-                    assignedDeveloper = "Ana García",
-                    completionDate = LocalDate.of(2024, 1, 20)
+                    programmerId = 1
                 ),
-                TaskData(
+                Task(
                     id = 2,
                     name = "Implementación de API REST",
                     description = "Desarrollar endpoints para gestión de inventario",
-                    estimatedHours = 40,
-                    creationDate = LocalDate.of(2024, 1, 16),
+                    estimation = 40,
+                    creationDate = LocalDateTime.of(2024, 1, 16, 0, 0),
+                    endDate = null,
                     projectId = project.id,
-                    assignedDeveloper = "Carlos Rodríguez"
+                    programmerId = 2
                 ),
-                TaskData(
+                Task(
                     id = 3,
                     name = "Desarrollo de UI",
                     description = "Crear interfaces de usuario según diseños aprobados",
-                    estimatedHours = 60,
-                    creationDate = LocalDate.of(2024, 1, 17),
-                    projectId = project.id
+                    estimation = 60,
+                    creationDate = LocalDateTime.of(2024, 1, 17, 0, 0),
+                    endDate = null,
+                    projectId = project.id,
+                    programmerId = null
                 )
             )
         }
@@ -90,7 +93,7 @@ class ProjectDetailScreen(private val project: ProjectData) : Screen {
                             item {
                                 ProjectDetailsCard(project)
                             }
-
+                            /*
                             item {
                                 TasksSection(
                                     tasks = tasks,
@@ -99,6 +102,7 @@ class ProjectDetailScreen(private val project: ProjectData) : Screen {
                                     }
                                 )
                             }
+                             */
                         }
                     }
                 }
@@ -155,8 +159,8 @@ class ProjectDetailScreen(private val project: ProjectData) : Screen {
 
     @Composable
     private fun TasksSection(
-        tasks: List<TaskData>,
-        onTaskClick: (TaskData) -> Unit
+        tasks: List<Task>,
+        onTaskClick: (Task) -> Unit
     ) {
         ContentCard {
             Column(

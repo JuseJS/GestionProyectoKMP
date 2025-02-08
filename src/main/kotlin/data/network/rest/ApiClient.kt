@@ -1,29 +1,29 @@
 package data.network.rest
 
 import io.ktor.client.*
+import io.ktor.client.call.*
 import io.ktor.client.request.*
-import io.ktor.http.*
 
-class ApiClient(private val httpClient: HttpClient) {
+internal class ApiClient @PublishedApi internal constructor(
+    @PublishedApi internal val httpClient: HttpClient
+) {
     companion object {
-        private const val BASE_URL = "tu_url_base_aqui"
+        const val BASE_URL = "http://127.0.0.1:5000/api"
     }
 
     suspend inline fun <reified T> get(
         endpoint: String,
-        builder: HttpRequestBuilder.() -> Unit = {}
-    ): T = httpClient.get("$BASE_URL$endpoint") {
-        contentType(ContentType.Application.Json)
+        crossinline builder: HttpRequestBuilder.() -> Unit = {}
+    ): T = httpClient.get(endpoint) {
         builder()
-    }
+    }.body()
 
-    suspend inline fun <reified T> post(
+    suspend inline fun <reified T, reified R> post(
         endpoint: String,
-        body: Any,
-        builder: HttpRequestBuilder.() -> Unit = {}
-    ): T = httpClient.post("$BASE_URL$endpoint") {
-        contentType(ContentType.Application.Json)
+        body: R,
+        crossinline builder: HttpRequestBuilder.() -> Unit = {}
+    ): T = httpClient.post(endpoint) {
         setBody(body)
         builder()
-    }
+    }.body()
 }

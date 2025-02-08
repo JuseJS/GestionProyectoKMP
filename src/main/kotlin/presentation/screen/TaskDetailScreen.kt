@@ -12,18 +12,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
-import domain.model.TaskData
+import domain.model.Task
 import presentation.components.SidebarMenu
 import presentation.components.task.TaskDetailsCard
 import presentation.theme.Theme
 
-class TaskDetailScreen(private val task: TaskData) : Screen {
+class TaskDetailScreen(private val task: Task) : Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.current
         var selectedItem by remember { mutableStateOf(1) }
         var showAssignDialog by remember { mutableStateOf(false) }
-        var selectedDeveloper by remember { mutableStateOf(task.assignedDeveloper) }
 
         // Lista de ejemplo de programadores disponibles
         val availableDevelopers = remember {
@@ -94,7 +93,6 @@ class TaskDetailScreen(private val task: TaskData) : Screen {
                         // Detalles de la tarea
                         TaskDetailsCard(
                             task = task,
-                            selectedDeveloper = selectedDeveloper,
                             onAssignClick = { showAssignDialog = true }
                         )
                     }
@@ -121,16 +119,15 @@ class TaskDetailScreen(private val task: TaskData) : Screen {
                                     .fillMaxWidth()
                                     .padding(vertical = 8.dp)
                                     .clickable {
-                                        selectedDeveloper = developer
                                         showAssignDialog = false
                                     },
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
+                                val selectedDeveloper = null
                                 RadioButton(
                                     selected = developer == selectedDeveloper,
                                     onClick = {
-                                        selectedDeveloper = developer
                                         showAssignDialog = false
                                     },
                                     colors = RadioButtonDefaults.colors(

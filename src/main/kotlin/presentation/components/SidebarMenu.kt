@@ -62,7 +62,7 @@ fun SidebarMenu(
                         navigator?.push(WelcomeScreen())
                     }
                 )
-
+                /*
                 MenuButton(
                     icon = Icons.Default.Folder,
                     text = "Proyectos",
@@ -72,6 +72,7 @@ fun SidebarMenu(
                         navigator?.push(ProjectsScreen())
                     }
                 )
+                */
             }
 
             // Botón de cerrar sesión

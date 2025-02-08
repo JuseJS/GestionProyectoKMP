@@ -1,4 +1,8 @@
 package di
 
-class UseCaseModule {
+import domain.usecase.auth.LoginUseCase
+import org.koin.dsl.module
+
+val useCaseModule = module {
+    factory { LoginUseCase(get()) }
 }

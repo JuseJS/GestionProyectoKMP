@@ -11,15 +11,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import domain.model.TaskData
+import domain.model.Task
 import presentation.components.InfoItem
 import presentation.components.StatusChip
 import presentation.theme.Theme
 
 @Composable
 fun TaskCard(
-    task: TaskData,
-    onClick: (TaskData) -> Unit,
+    task: Task,
+    onClick: (Task) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -39,7 +39,7 @@ fun TaskCard(
                 color = Theme.materialColors.onBackground
             )
 
-            StatusChip(isCompleted = task.completionDate != null)
+            StatusChip(isCompleted = task.endDate != null)
         }
 
         Text(
@@ -55,14 +55,14 @@ fun TaskCard(
             InfoItem(
                 icon = Icons.Default.Schedule,
                 label = "Estimación",
-                value = "${task.estimatedHours}h",
+                value = "${task.estimation}h",
                 iconSize = Modifier.size(16.dp)
             )
 
             InfoItem(
                 icon = Icons.Default.Person,
                 label = "Asignado a",
-                value = task.assignedDeveloper ?: "Sin asignar",
+                value = (task.programmerId ?: "Sin asignar").toString(),
                 iconSize = Modifier.size(16.dp)
             )
 

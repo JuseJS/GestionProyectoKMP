@@ -110,7 +110,7 @@ class WelcomeScreen : Screen {
                             ProjectCard(
                                 project = project,
                                 onClick = { clickedProject ->
-                                    navigator?.push(ProjectDetailScreen(clickedProject))
+                                    //navigator?.push(ProjectDetailScreen(clickedProject))
                                 }
                             )
                         }
@@ -129,7 +129,7 @@ class WelcomeScreen : Screen {
                             ProjectCard(
                                 project = project,
                                 onClick = { clickedProject ->
-                                    navigator?.push(ProjectDetailScreen(clickedProject))
+                                    //navigator?.push(ProjectDetailScreen(clickedProject))
                                 }
                             )
                         }

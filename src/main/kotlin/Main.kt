@@ -6,6 +6,11 @@ import androidx.compose.ui.window.WindowPlacement
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import cafe.adriel.voyager.navigator.Navigator
+import di.apiModule
+import di.repositoryModule
+import di.useCaseModule
+import di.viewModelModule
+import org.koin.core.context.startKoin
 import presentation.screen.LoginScreen
 import presentation.theme.AppTheme
 
@@ -17,17 +22,28 @@ fun App() {
     }
 }
 
-fun main() = application {
-    val windowState = rememberWindowState(
-        size = DpSize.Unspecified,
-        placement = WindowPlacement.Maximized
-    )
+fun main() {
+    startKoin {
+        modules(
+            apiModule,
+            repositoryModule,
+            useCaseModule,
+            viewModelModule
+        )
+    }
 
-    Window(
-        onCloseRequest = ::exitApplication,
-        title = "NeoTech",
-        state = windowState
-    ) {
-        App()
+    application {
+        val windowState = rememberWindowState(
+            size = DpSize.Unspecified,
+            placement = WindowPlacement.Maximized
+        )
+
+        Window(
+            onCloseRequest = ::exitApplication,
+            title = "NeoTech",
+            state = windowState
+        ) {
+            App()
+        }
     }
 }

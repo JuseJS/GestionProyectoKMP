@@ -22,13 +22,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import domain.model.TaskData
+import domain.model.Task
 import presentation.theme.Theme
 
 @Composable
 fun TaskDetailsCard(
-    task: TaskData,
-    selectedDeveloper: String?,
+    task: Task,
     onAssignClick: () -> Unit
 ) {
     Card(
@@ -53,16 +52,16 @@ fun TaskDetailsCard(
                 )
 
                 Card(
-                    backgroundColor = if (task.completionDate != null)
+                    backgroundColor = if (task.endDate != null)
                         Theme.materialColors.primary
                     else
                         Theme.colors.surfaceContainerHigh,
                     shape = RoundedCornerShape(8.dp)
                 ) {
                     Text(
-                        text = if (task.completionDate != null) "Completada" else "En progreso",
+                        text = if (task.endDate != null) "Completada" else "En progreso",
                         modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp),
-                        color = if (task.completionDate != null)
+                        color = if (task.endDate != null)
                             Theme.materialColors.onPrimary
                         else
                             Theme.colors.textSecondary,
@@ -86,7 +85,7 @@ fun TaskDetailsCard(
                 TaskDetailItem(
                     icon = Icons.Default.Schedule,
                     label = "Tiempo Estimado",
-                    value = "${task.estimatedHours} horas"
+                    value = "${task.endDate} horas"
                 )
 
                 TaskDetailItem(
@@ -95,11 +94,11 @@ fun TaskDetailsCard(
                     value = task.creationDate.toString()
                 )
 
-                if (task.completionDate != null) {
+                if (task.endDate != null) {
                     TaskDetailItem(
                         icon = Icons.Default.Event,
                         label = "Fecha de Finalización",
-                        value = task.completionDate.toString()
+                        value = task.endDate.toString()
                     )
                 }
 
@@ -124,6 +123,7 @@ fun TaskDetailsCard(
                                 style = MaterialTheme.typography.caption,
                                 color = Theme.colors.textSecondary
                             )
+                            val selectedDeveloper = null
                             Text(
                                 text = selectedDeveloper ?: "Sin asignar",
                                 style = MaterialTheme.typography.body2,
