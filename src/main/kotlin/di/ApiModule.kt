@@ -28,7 +28,7 @@ val apiModule = module {
                 level = LogLevel.ALL
             }
             defaultRequest {
-                url(ApiClient.BASE_URL)
+                //url.takeFrom(ApiClient.BASE_URL)
                 header(HttpHeaders.ContentType, ContentType.Application.Json)
                 header(HttpHeaders.Accept, ContentType.Application.Json)
             }

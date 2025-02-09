@@ -18,7 +18,7 @@ internal class ApiServiceImpl @PublishedApi internal constructor(
 ) : ApiService {
 
     override suspend fun login(request: LoginRequest): AuthResponse =
-        apiClient.post<AuthResponse, _>("auth/login", request)
+        apiClient.post<AuthResponse, _>("/auth/login", request)
 
     override suspend fun getProjects(): List<ProjectResponse> =
         apiClient.get("/projects")

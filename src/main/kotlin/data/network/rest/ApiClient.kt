@@ -14,7 +14,8 @@ internal class ApiClient @PublishedApi internal constructor(
     suspend inline fun <reified T> get(
         endpoint: String,
         crossinline builder: HttpRequestBuilder.() -> Unit = {}
-    ): T = httpClient.get(endpoint) {
+    ): T = httpClient.get {
+        url("$BASE_URL/${endpoint.trimStart('/')}")
         builder()
     }.body()
 
@@ -22,7 +23,8 @@ internal class ApiClient @PublishedApi internal constructor(
         endpoint: String,
         body: R,
         crossinline builder: HttpRequestBuilder.() -> Unit = {}
-    ): T = httpClient.post(endpoint) {
+    ): T = httpClient.post {
+        url("$BASE_URL/${endpoint.trimStart('/')}")
         setBody(body)
         builder()
     }.body()
