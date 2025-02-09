@@ -138,7 +138,7 @@ class ProjectDetailScreen(private val project: Project) : Screen {
                     InfoItem(
                         icon = Icons.Default.Business,
                         label = "Cliente",
-                        value = project.clientName
+                        value = project.clientId.toString()
                     )
 
                     InfoItem(

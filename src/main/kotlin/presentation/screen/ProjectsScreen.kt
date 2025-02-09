@@ -22,42 +22,6 @@ class ProjectsScreen : Screen {
         var selectedItem by remember { mutableStateOf(1) }
         var showOnlyUserProjects by remember { mutableStateOf(false) }
 
-        // Datos de ejemplo
-        val allProjects = remember {
-            listOf(
-                ProjectData(
-                    id = 1,
-                    name = "Sistema de Gestión de Inventario",
-                    description = "Desarrollo de un sistema completo para la gestión de inventario con seguimiento en tiempo real",
-                    startDate = LocalDate.of(2024, 1, 15),
-                    clientCompany = "TechnoSolutions S.A.",
-                    isUserAssigned = true
-                ),
-                ProjectData(
-                    id = 2,
-                    name = "App de Delivery",
-                    description = "Aplicación móvil para servicio de entrega a domicilio con tracking en tiempo real",
-                    startDate = LocalDate.of(2024, 2, 1),
-                    clientCompany = "FastDelivery Inc.",
-                    isUserAssigned = false
-                ),
-                ProjectData(
-                    id = 3,
-                    name = "CRM Empresarial",
-                    description = "Sistema de gestión de relaciones con clientes personalizado",
-                    startDate = LocalDate.of(2024, 3, 1),
-                    clientCompany = "Business Solutions Corp",
-                    isUserAssigned = true
-                )
-            )
-        }
-
-        val displayedProjects = if (showOnlyUserProjects) {
-            allProjects.filter { it.isUserAssigned }
-        } else {
-            allProjects
-        }
-
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = Theme.materialColors.background
@@ -88,23 +52,7 @@ class ProjectsScreen : Screen {
                             onFilterChange = { showOnlyUserProjects = it }
                         )
 
-                        // Lista de proyectos
-                        if (displayedProjects.isNotEmpty()) {
-                            LazyColumn(
-                                verticalArrangement = Arrangement.spacedBy(16.dp)
-                            ) {
-                                items(displayedProjects) { project ->
-                                    ProjectCard(
-                                        project = project,
-                                        onClick = { clickedProject ->
-                                            //navigator?.push(ProjectDetailScreen(clickedProject))
-                                        }
-                                    )
-                                }
-                            }
-                        } else {
-                            EmptyProjectsMessage()
-                        }
+                        EmptyProjectsMessage()
                     }
                 }
             }

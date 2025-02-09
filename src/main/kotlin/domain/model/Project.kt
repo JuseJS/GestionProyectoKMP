@@ -9,5 +9,5 @@ data class Project(
     val creationDate: LocalDateTime,
     val startDate: LocalDateTime,
     val endDate: LocalDateTime?,
-    val clientName: String
+    val clientId: Int
 )

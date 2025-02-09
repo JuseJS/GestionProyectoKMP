@@ -4,6 +4,7 @@ import data.network.rest.model.requests.CreateProjectRequest
 import data.network.rest.model.requests.LoginRequest
 import data.network.rest.model.responses.AuthResponse
 import data.network.rest.model.responses.ProjectResponse
+import kotlinx.serialization.json.Json
 
 interface ApiService {
     // Login
@@ -30,8 +31,14 @@ internal class ApiServiceImpl @PublishedApi internal constructor(
     override suspend fun getActiveProjects(): List<ProjectResponse> =
         apiClient.get("/proyectos/activos")
 
-    override suspend fun getManagerProjects(managerId: Int): List<ProjectResponse> =
-        apiClient.post<List<ProjectResponse>, Map<String, Int>>("/proyectos/gestor", mapOf("id" to managerId))
+    override suspend fun getManagerProjects(managerId: Int): List<ProjectResponse> {
+        val response = apiClient.post<String, Map<String, Int>>(
+            "/proyectos/gestor",
+            mapOf("id" to managerId)
+        )
+        println("Raw response: $response")
+        return Json.decodeFromString<List<ProjectResponse>>(response)
+    }
 
     override suspend fun getProjectDetails(id: String): ProjectResponse =
         apiClient.get("/proyectos/$id")

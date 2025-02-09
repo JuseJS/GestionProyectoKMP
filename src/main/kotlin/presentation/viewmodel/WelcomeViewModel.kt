@@ -11,6 +11,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import presentation.common.UiState
 import data.store.UserStore
+import domain.usecase.project.GetActiveProjectsUseCase
+import domain.usecase.project.GetManagerProjectsUseCase
 
 data class WelcomeData(
     val activeProjects: List<Project> = emptyList(),

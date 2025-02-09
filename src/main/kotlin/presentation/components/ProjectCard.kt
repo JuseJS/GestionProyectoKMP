@@ -74,7 +74,7 @@ fun ProjectCard(
                     tint = Theme.materialColors.primary
                 )
                 Text(
-                    text = project.clientName,
+                    text = project.clientId.toString(),
                     style = MaterialTheme.typography.body2,
                     color = Theme.materialColors.onBackground
                 )

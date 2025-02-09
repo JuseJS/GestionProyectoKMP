@@ -116,7 +116,7 @@ private fun UserInfoCard(user: User?) {
 @Composable
 private fun ProjectsList(
     projects: List<Project>,
-    onProjectClick: (ProjectData) -> Unit,
+    onProjectClick: (Project) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(

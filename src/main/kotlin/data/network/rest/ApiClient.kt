@@ -3,6 +3,8 @@ package data.network.rest
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.request.*
+import io.ktor.http.ContentType
+import io.ktor.http.contentType
 
 internal class ApiClient @PublishedApi internal constructor(
     @PublishedApi internal val httpClient: HttpClient
@@ -25,6 +27,7 @@ internal class ApiClient @PublishedApi internal constructor(
         crossinline builder: HttpRequestBuilder.() -> Unit = {}
     ): T = httpClient.post {
         url("$BASE_URL/${endpoint.trimStart('/')}")
+        contentType(ContentType.Application.Json)
         setBody(body)
         builder()
     }.body()
