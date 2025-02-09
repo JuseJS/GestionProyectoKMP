@@ -17,7 +17,6 @@ val viewModelModule = module {
 
     factory {
         ProjectDetailViewModel(
-            projectRepository = get(),
             taskRepository = get()
         )
     }

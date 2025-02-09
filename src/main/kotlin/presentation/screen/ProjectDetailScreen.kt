@@ -19,6 +19,8 @@ import presentation.states.UiState
 import presentation.components.*
 import presentation.components.common.ErrorMessage
 import presentation.components.common.LoadingScreen
+import presentation.components.task.EmptyTasksMessage
+import presentation.components.task.TasksList
 import presentation.viewmodel.ProjectDetailViewModel
 
 class ProjectDetailScreen(private val project: Project) : Screen, KoinComponent {
@@ -84,7 +86,6 @@ class ProjectDetailScreen(private val project: Project) : Screen, KoinComponent 
                         }
 
                         // Tasks List
-                        /*
                         item {
                             if (state.data.tasks.isEmpty()) {
                                 EmptyTasksMessage()
@@ -97,7 +98,6 @@ class ProjectDetailScreen(private val project: Project) : Screen, KoinComponent 
                                 )
                             }
                         }
-                         */
                     }
                 }
             }

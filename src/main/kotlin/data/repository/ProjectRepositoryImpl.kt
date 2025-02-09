@@ -108,22 +108,11 @@ class ProjectRepositoryImpl(
         Result.Error(e)
     }
 
-    override suspend fun assignProgrammer(request: AssignProgrammerRequest): Result<Unit> {
-        return try {
-            val response = apiService.assignProgrammerToProject(request)
-
-            if (response.isSuccessful) {
-                Result.Success(Unit)
-            } else {
-                when (response.code()) {
-                    400 -> Result.Error("Datos inválidos o faltantes")
-                    500 -> Result.Error("Error del servidor")
-                    else -> Result.Error("Error desconocido: ${response.code()}")
-                }
-            }
-        } catch (e: Exception) {
-            Result.Error(e.message ?: "Error de conexión")
-        }
+    override suspend fun assignProgrammer(request: AssignProgrammerRequest): Result<Unit> = try {
+        val response = apiService.assignProgrammerToProject(request)
+        Result.Success(Unit)
+    } catch (e: Exception) {
+        Result.Error(e)
     }
 
     override suspend fun createProject(request: CreateProjectRequest): Result<Project> = try {

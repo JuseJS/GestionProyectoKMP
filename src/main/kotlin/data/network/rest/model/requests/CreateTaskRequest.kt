@@ -1,9 +1,13 @@
 package data.network.rest.model.requests
 
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class CreateTaskRequest(
-    val name: String,
-    val description: String,
-    val estimation: Int,
-    val projectId: Int,
-    val programmerId: Int?
+    @SerialName("gestor") val manager: Int,
+    @SerialName("nombre") val name: String,
+    @SerialName("descripcion") val description: String,
+    @SerialName("estimacion") val estimation: Int,
+    @SerialName("proyecto") val project: Int
 )

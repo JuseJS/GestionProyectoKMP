@@ -10,7 +10,7 @@ data class TaskResponse(
     @SerialName("descripcion") val description: String,
     @SerialName("estimacion") val estimation: Int,
     @SerialName("fecha_creacion") val creationDate: String,
-    @SerialName("fecha_finalizacion") val endDate: String,
+    @SerialName("fecha_finalizacion") val endDate: String? = null,
     @SerialName("proyecto") val projectId: Int,
-    @SerialName("programador") val programmerId: Int
+    @SerialName("programador") val programmerId: Int? = null
 )

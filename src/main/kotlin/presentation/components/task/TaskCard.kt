@@ -19,11 +19,10 @@ import presentation.theme.Theme
 @Composable
 fun TaskCard(
     task: Task,
-    onClick: (Task) -> Unit,
-    modifier: Modifier = Modifier
+    onClick: (Task) -> Unit
 ) {
     Column(
-        modifier = modifier
+        modifier = Modifier
             .clickable { onClick(task) }
             .padding(vertical = 16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)

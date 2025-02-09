@@ -1,11 +1,14 @@
 package data.network.rest
 
 import data.network.rest.model.requests.AssignProgrammerRequest
+import data.network.rest.model.requests.AssignTaskRequest
 import data.network.rest.model.requests.CreateProjectRequest
+import data.network.rest.model.requests.CreateTaskRequest
 import data.network.rest.model.requests.LoginRequest
 import data.network.rest.model.responses.AssignProgrammerResponse
 import data.network.rest.model.responses.AuthResponse
 import data.network.rest.model.responses.ProjectResponse
+import data.network.rest.model.responses.TaskResponse
 import kotlinx.serialization.json.Json
 
 interface ApiService {
@@ -18,6 +21,11 @@ interface ApiService {
     suspend fun getManagerEndedProjects(managerId: Int): List<ProjectResponse>
     suspend fun createProject(request: CreateProjectRequest): ProjectResponse
     suspend fun assignProgrammerToProject(request: AssignProgrammerRequest): AssignProgrammerResponse
+
+    // Tareas
+    suspend fun getProjectTasks(projectId: Int): List<TaskResponse>
+    suspend fun createTask(request: CreateTaskRequest): TaskResponse
+    suspend fun assignTask(request: AssignTaskRequest): TaskResponse
 }
 
 @PublishedApi
@@ -57,4 +65,15 @@ internal class ApiServiceImpl @PublishedApi internal constructor(
 
     override suspend fun createProject(request: CreateProjectRequest): ProjectResponse =
         apiClient.post<ProjectResponse, _>("/proyectos", request)
+
+    override suspend fun getProjectTasks(projectId: Int): List<TaskResponse> {
+        return apiClient.get("/proyectos/$projectId/tareas")
+    }
+
+    override suspend fun createTask(request: CreateTaskRequest): TaskResponse {
+        return apiClient.post("/tareas/crear", request)
+    }
+
+    override suspend fun assignTask(request: AssignTaskRequest): TaskResponse =
+        apiClient.post("/tareas/asignar-programador", request)
 }

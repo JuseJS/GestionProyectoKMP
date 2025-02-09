@@ -1,26 +1,25 @@
 package presentation.viewmodel
 
-import data.network.rest.model.requests.AssignProgrammerRequest
 import data.network.rest.model.requests.AssignTaskRequest
 import data.network.rest.model.requests.CreateTaskRequest
 import domain.common.Result
+import domain.model.Project
+import domain.model.User
+import domain.repository.TaskRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import presentation.states.UiState
-import domain.repository.ProjectRepository
-import domain.repository.TaskRepository
-import domain.model.Project
 import presentation.states.ProjectDetailState
+import presentation.states.UiState
 
 class ProjectDetailViewModel(
-    private val projectRepository: ProjectRepository,
     private val taskRepository: TaskRepository,
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.Main)
 ) {
     private val _currentProject = MutableStateFlow<Project?>(null)
+    private val _currentUser = MutableStateFlow<User?>(null)
 
     // Estado de la UI
     val uiState: StateFlow<UiState<ProjectDetailState>> = taskRepository.projectDetailState
@@ -33,7 +32,7 @@ class ProjectDetailViewModel(
     private fun loadData() {
         scope.launch {
             _currentProject.value?.let { project ->
-                taskRepository.loadProjectTasks(project.id)
+                taskRepository.loadProjectTasks(project)
             }
         }
     }
@@ -42,21 +41,9 @@ class ProjectDetailViewModel(
         loadData()
     }
 
-    fun assignProgrammer(project: Project, programmerId: Int) {
-        scope.launch {
-            val request = AssignProgrammerRequest(programmerId, project.id)
-            when (taskRepository.assignTask(request)) {
-                is Result.Success -> loadData()
-                is Result.Error -> {
-                    // TODO: Manejar error de asignación
-                }
-            }
-        }
-    }
-
     fun assignTask(taskId: Int, programmerId: Int) {
         scope.launch {
-            val request = AssignTaskRequest(taskId, programmerId)
+            val request = AssignTaskRequest(programmerId, taskId)
             when (taskRepository.assignTask(request)) {
                 is Result.Success -> loadData()
                 is Result.Error -> {
@@ -75,11 +62,11 @@ class ProjectDetailViewModel(
         scope.launch {
             _currentProject.value?.let { project ->
                 val request = CreateTaskRequest(
+                    manager = _currentUser.value?.id ?: 1,
                     name = name,
                     description = description,
                     estimation = estimation,
-                    projectId = project.id,
-                    programmerId = programmerId
+                    project = project.id,
                 )
 
                 when (taskRepository.createTask(request)) {

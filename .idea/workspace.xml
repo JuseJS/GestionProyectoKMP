@@ -5,41 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="23211b55-b534-4dbf-b58d-446d04ed4ea2" name="Changes" comment="welcomescreen with api">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/requests/AssignProgrammerRequest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/requests/CreateTaskRequest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/responses/AssignProgrammerResponse.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/components/navigation/MenuButton.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/components/project/ProjectList.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/states/ProjectDetailState.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/states/ProjectsState.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/states/TasksState.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/states/UserState.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/mappers/TaskMappers.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/requests/AssignTaskProgrammerRequest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/components/task/EmptyTasksMessage.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/components/task/TasksList.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/util/ParseDateTime.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/ApiService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/ApiService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/mappers/AuthMappers.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/mappers/AuthMappers.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/requests/AssignRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/requests/AssignTaskRequest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/responses/AuthResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/responses/AuthResponse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/mappers/ProjectMappers.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/mappers/ProjectMappers.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/requests/AssignTaskRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/requests/AssignTaskRequest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/requests/CreateTaskRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/requests/CreateTaskRequest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/responses/AssignProgrammerResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/responses/AssignProgrammerResponse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/responses/TaskResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/responses/TaskResponse.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/repository/ProjectRepositoryImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/repository/ProjectRepositoryImpl.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/repository/TaskRepositoryImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/repository/TaskRepositoryImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/di/RepositoryModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/di/RepositoryModule.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/di/ViewModelModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/di/ViewModelModule.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/domain/model/User.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/domain/model/User.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/domain/repository/ProjectRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/domain/repository/ProjectRepository.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/domain/repository/TaskRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/domain/repository/TaskRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/domain/usecase/project/GetManagerProjectsUseCase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/domain/usecase/project/GetManagerProjectsUseCase.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/domain/usecase/project/GetProjectsUseCase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/domain/usecase/project/GetProjectsUseCase.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/presentation/common/UiState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/states/UiState.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/presentation/components/BaseScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/components/BaseScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/presentation/components/ProjectCard.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/components/ProjectCard.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/presentation/components/SidebarMenu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/components/navigation/SidebarMenu.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/presentation/screen/LoginScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/screen/LoginScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/presentation/components/task/TaskCard.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/components/task/TaskCard.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/presentation/screen/ProjectDetailScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/screen/ProjectDetailScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/presentation/screen/ProjectsScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/screen/ProjectsScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/presentation/screen/TaskDetailScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/screen/TaskDetailScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/presentation/screen/WelcomeScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/screen/WelcomeScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/presentation/viewmodel/LoginViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/viewmodel/LoginViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/presentation/states/TasksState.kt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/presentation/viewmodel/ProjectDetailViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/viewmodel/ProjectDetailViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/presentation/viewmodel/ProjectsViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/viewmodel/ProjectsViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/presentation/viewmodel/WelcomeViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/viewmodel/WelcomeViewModel.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,22 +70,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.desktop.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/navarro/IdeaProjects/GestionProyectoKMP/src/main/resources&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.Build GestionProyectoKMP.executor": "Run",
+    "Gradle.desktop.executor": "Run",
+    "Kotlin.MainKt.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/home/navarro/IdeaProjects/GestionProyectoKMP/src/main/kotlin/presentation/components/task",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/kotlin/presentation/components/task" />
       <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="$PROJECT_DIR$/src/main/kotlin/data" />
+    </key>
+    <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="data.network.rest.model.requests" />
     </key>
     <key name="K2MoveDeclarationsDialog.RECENT_PACKAGE_KEY">
       <recent name="presentation.components.navigation" />
