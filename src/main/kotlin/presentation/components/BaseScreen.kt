@@ -6,6 +6,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.navigator.Navigator
+import presentation.components.navigation.SidebarMenu
 import presentation.theme.Theme
 
 @Composable
@@ -23,7 +24,6 @@ fun BaseScreen(
             SidebarMenu(
                 selectedItem = selectedItem,
                 onItemSelected = onItemSelected,
-                onLogout = { navigator?.pop() },
                 navigator = navigator
             )
 

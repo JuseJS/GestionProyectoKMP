@@ -6,5 +6,6 @@ import kotlinx.serialization.Serializable
 data class AuthResponse(
     val id: Int,
     val user: String,
-    val name: String
+    val name: String,
+    val role: String
 )

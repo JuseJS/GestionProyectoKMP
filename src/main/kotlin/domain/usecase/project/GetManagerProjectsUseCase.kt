@@ -9,5 +9,5 @@ class GetManagerProjectsUseCase(
     private val repository: ProjectRepository
 ) : UseCase<Unit, List<Project>>() {
     override suspend operator fun invoke(parameters: Unit): Result<List<Project>> =
-        repository.getManagerProjects()
+        repository.getManagerActiveProjects()
 }

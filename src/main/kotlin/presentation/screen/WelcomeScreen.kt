@@ -9,17 +9,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
-import domain.model.Project
 import domain.model.User
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import presentation.common.UiState
+import presentation.states.UiState
 import presentation.components.*
 import presentation.components.common.ErrorMessage
 import presentation.components.common.LoadingScreen
 import presentation.components.project.EmptyProjectsMessage
-import presentation.theme.Theme
 import presentation.viewmodel.WelcomeViewModel
+import data.store.UserStore
+import presentation.components.project.ProjectsList
 
 class WelcomeScreen : Screen, KoinComponent {
     private val viewModel: WelcomeViewModel by inject()
@@ -28,6 +28,7 @@ class WelcomeScreen : Screen, KoinComponent {
     override fun Content() {
         val navigator = LocalNavigator.current
         val uiState by viewModel.uiState.collectAsState()
+        val currentUser by UserStore.currentUser.collectAsState()
         var selectedItem by remember { mutableStateOf(0) }
 
         BaseScreen(
@@ -46,28 +47,27 @@ class WelcomeScreen : Screen, KoinComponent {
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.spacedBy(24.dp)
                     ) {
-                        // Header Section
                         item {
                             HeaderSection(
                                 title = "Bienvenido",
                                 content = {
-                                    UserInfoCard(user = state.data.currentUser)
+                                    UserInfoCard(user = currentUser)
                                 }
                             )
                         }
 
-                        if (state.data.activeProjects.isEmpty() &&
-                            state.data.managerProjects.isEmpty()) {
+                        if (state.data.managerActiveProjects.isEmpty() &&
+                            state.data.managerEndedProjects.isEmpty()) {
                             item {
                                 EmptyProjectsMessage()
                             }
                         } else {
-                            // Active Projects Section
-                            if (state.data.activeProjects.isNotEmpty()) {
+                            // Proyectos Activos
+                            if (state.data.managerActiveProjects.isNotEmpty()) {
                                 item {
-                                    ContentSection(title = "Proyectos Activos") {
+                                    ContentSection(title = "Tus Proyectos Activos") {
                                         ProjectsList(
-                                            projects = state.data.activeProjects,
+                                            projects = state.data.managerActiveProjects,
                                             onProjectClick = { project ->
                                                 navigator?.push(ProjectDetailScreen(project))
                                             }
@@ -76,12 +76,12 @@ class WelcomeScreen : Screen, KoinComponent {
                                 }
                             }
 
-                            // Manager's Projects Section
-                            if (state.data.managerProjects.isNotEmpty()) {
+                            // Proyectos Finalizados
+                            if (state.data.managerEndedProjects.isNotEmpty()) {
                                 item {
-                                    ContentSection(title = "Mis Proyectos") {
+                                    ContentSection(title = "Tus Proyectos Finalizados") {
                                         ProjectsList(
-                                            projects = state.data.managerProjects,
+                                            projects = state.data.managerEndedProjects,
                                             onProjectClick = { project ->
                                                 navigator?.push(ProjectDetailScreen(project))
                                             }
@@ -106,27 +106,8 @@ private fun UserInfoCard(user: User?) {
         ) {
             InfoItem(
                 icon = Icons.Default.Person,
-                label = "Usuario",
+                label = user?.role ?: "Sin Rol",
                 value = user?.name ?: "Usuario",
-            )
-        }
-    }
-}
-
-@Composable
-private fun ProjectsList(
-    projects: List<Project>,
-    onProjectClick: (Project) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        projects.forEach { project ->
-            ProjectCard(
-                project = project,
-                onClick = onProjectClick
             )
         }
     }

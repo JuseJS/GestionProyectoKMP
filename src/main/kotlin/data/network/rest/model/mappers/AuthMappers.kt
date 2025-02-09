@@ -6,5 +6,6 @@ import domain.model.User
 fun AuthResponse.toDomain(): User = User(
     id = id,
     user = user,
-    name = name
+    name = name,
+    role = role
 )

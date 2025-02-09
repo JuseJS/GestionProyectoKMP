@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import domain.model.Task
-import presentation.components.SidebarMenu
+import presentation.components.navigation.SidebarMenu
 import presentation.components.task.TaskDetailsCard
 import presentation.theme.Theme
 
@@ -44,7 +44,6 @@ class TaskDetailScreen(private val task: Task) : Screen {
                 SidebarMenu(
                     selectedItem = selectedItem,
                     onItemSelected = { selectedItem = it },
-                    onLogout = { navigator?.pop() },
                     navigator = navigator
                 )
 

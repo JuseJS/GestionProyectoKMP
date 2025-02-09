@@ -25,7 +25,7 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import data.store.UserStore
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import presentation.common.UiState
+import presentation.states.UiState
 import presentation.theme.Theme
 import presentation.viewmodel.LoginViewModel
 

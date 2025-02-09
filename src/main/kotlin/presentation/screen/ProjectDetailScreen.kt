@@ -13,173 +13,91 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import domain.model.Project
-import domain.model.Task
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import presentation.states.UiState
 import presentation.components.*
-import presentation.components.task.TaskCard
-import presentation.theme.Theme
-import java.time.LocalDateTime
+import presentation.components.common.ErrorMessage
+import presentation.components.common.LoadingScreen
+import presentation.viewmodel.ProjectDetailViewModel
 
-class ProjectDetailScreen(private val project: Project) : Screen {
+class ProjectDetailScreen(private val project: Project) : Screen, KoinComponent {
+    private val viewModel: ProjectDetailViewModel by inject()
+
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.current
+        val uiState by viewModel.uiState.collectAsState()
         var selectedItem by remember { mutableStateOf(1) }
 
-        val tasks = remember {
-            listOf(
-                Task(
-                    id = 1,
-                    name = "Diseño de Base de Datos",
-                    description = "Crear el esquema de la base de datos para el sistema",
-                    estimation = 20,
-                    creationDate = LocalDateTime.of(2024, 1, 15, 0, 0),
-                    endDate = LocalDateTime.of(2024, 1, 20, 0, 0),
-                    projectId = project.id,
-                    programmerId = 1
-                ),
-                Task(
-                    id = 2,
-                    name = "Implementación de API REST",
-                    description = "Desarrollar endpoints para gestión de inventario",
-                    estimation = 40,
-                    creationDate = LocalDateTime.of(2024, 1, 16, 0, 0),
-                    endDate = null,
-                    projectId = project.id,
-                    programmerId = 2
-                ),
-                Task(
-                    id = 3,
-                    name = "Desarrollo de UI",
-                    description = "Crear interfaces de usuario según diseños aprobados",
-                    estimation = 60,
-                    creationDate = LocalDateTime.of(2024, 1, 17, 0, 0),
-                    endDate = null,
-                    projectId = project.id,
-                    programmerId = null
-                )
-            )
+        // Inicializar el viewModel con el proyecto actual
+        LaunchedEffect(project) {
+            viewModel.initProject(project)
         }
 
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = Theme.materialColors.background
+        BaseScreen(
+            selectedItem = selectedItem,
+            onItemSelected = { selectedItem = it },
+            navigator = navigator
         ) {
-            Row(modifier = Modifier.fillMaxSize()) {
-                SidebarMenu(
-                    selectedItem = selectedItem,
-                    onItemSelected = { selectedItem = it },
-                    onLogout = { navigator?.pop() },
-                    navigator = navigator
+            when (val state = uiState) {
+                is UiState.Loading -> LoadingScreen()
+                is UiState.Error -> ErrorMessage(
+                    message = state.message,
+                    onRetry = { viewModel.refresh() }
                 )
-
-                Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxHeight()
-                        .padding(24.dp)
-                ) {
-                    Column(
-                        modifier = Modifier.fillMaxSize()
+                is UiState.Success -> {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.spacedBy(24.dp)
                     ) {
-                        BackButton(
-                            text = "Volver a Proyectos",
-                            onClick = { navigator?.pop() }
-                        )
+                        // Back Button
+                        item {
+                            BackButton(
+                                text = "Volver a Proyectos",
+                                onClick = { navigator?.pop() }
+                            )
+                        }
 
-                        LazyColumn(
-                            modifier = Modifier.fillMaxSize(),
-                            verticalArrangement = Arrangement.spacedBy(24.dp)
-                        ) {
-                            item {
-                                ProjectDetailsCard(project)
-                            }
-                            /*
-                            item {
-                                TasksSection(
-                                    tasks = tasks,
+                        // Project Details Card
+                        item {
+                            ProjectCard(
+                                project = project,
+                                isDetailView = true
+                            )
+                        }
+
+                        // Tasks Section Header
+                        item {
+                            HeaderSection(
+                                title = "Tareas del Proyecto",
+                                content = {
+                                    Button(
+                                        onClick = {
+                                            // TODO: Implementar navegación a pantalla de crear tarea
+                                        }
+                                    ) {
+                                        Text("Nueva Tarea")
+                                    }
+                                }
+                            )
+                        }
+
+                        // Tasks List
+                        /*
+                        item {
+                            if (state.data.tasks.isEmpty()) {
+                                EmptyTasksMessage()
+                            } else {
+                                TasksList(
+                                    tasks = state.data.tasks,
                                     onTaskClick = { task ->
-                                        navigator?.push(TaskDetailScreen(task))
+                                        // TODO: Implementar navegación a detalle de tarea
                                     }
                                 )
                             }
-                             */
                         }
-                    }
-                }
-            }
-        }
-    }
-
-    @Composable
-    private fun ProjectDetailsCard(project: Project) {
-        ContentCard {
-            Column(
-                modifier = Modifier.padding(24.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                Text(
-                    text = project.name,
-                    style = MaterialTheme.typography.h4,
-                    color = Theme.materialColors.onBackground
-                )
-
-                Text(
-                    text = project.description,
-                    style = MaterialTheme.typography.body1,
-                    color = Theme.colors.textSecondary
-                )
-
-                Divider(color = Theme.colors.outline)
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    InfoItem(
-                        icon = Icons.Default.Business,
-                        label = "Cliente",
-                        value = project.clientId.toString()
-                    )
-
-                    InfoItem(
-                        icon = Icons.Default.DateRange,
-                        label = "Fecha de inicio",
-                        value = project.startDate.toString()
-                    )
-
-                    InfoItem(
-                        icon = Icons.Default.Person,
-                        label = "Estado",
-                        value = if (project.endDate != null) "Finalizado" else "En progreso"
-                    )
-                }
-            }
-        }
-    }
-
-    @Composable
-    private fun TasksSection(
-        tasks: List<Task>,
-        onTaskClick: (Task) -> Unit
-    ) {
-        ContentCard {
-            Column(
-                modifier = Modifier.padding(24.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                Text(
-                    text = "Tareas del Proyecto",
-                    style = MaterialTheme.typography.h5,
-                    color = Theme.materialColors.onBackground
-                )
-
-                tasks.forEach { task ->
-                    TaskCard(
-                        task = task,
-                        onClick = onTaskClick
-                    )
-                    if (task != tasks.last()) {
-                        Divider(color = Theme.colors.outline)
+                         */
                     }
                 }
             }

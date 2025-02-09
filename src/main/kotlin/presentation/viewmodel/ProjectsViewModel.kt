@@ -1,33 +1,39 @@
 package presentation.viewmodel
 
-import domain.common.Result
-import domain.model.Project
-import domain.usecase.project.GetProjectsUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import presentation.common.UiState
+import presentation.states.UiState
+import domain.repository.ProjectRepository
+import presentation.states.ProjectsState
 
-class ProjectsViewModel(
-    private val getProjectsUseCase: GetProjectsUseCase,
+class ProjectViewModel(
+    private val projectRepository: ProjectRepository,
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.Main)
 ) {
-    private val _uiState = MutableStateFlow<UiState<List<Project>>>(UiState.Loading)
-    val uiState = _uiState.asStateFlow()
+    private val _showOnlyManagerProjects = MutableStateFlow(false)
+    val showOnlyManagerProjects: StateFlow<Boolean> = _showOnlyManagerProjects.asStateFlow()
+
+    val uiState: StateFlow<UiState<ProjectsState>> = projectRepository.projectsState
 
     init {
-        loadProjects()
+        loadData()
     }
 
-    private fun loadProjects() {
+    fun loadData() {
         scope.launch {
-            _uiState.value = UiState.Loading
-            when (val result = getProjectsUseCase(Unit)) {
-                is Result.Success -> _uiState.value = UiState.Success(result.data)
-                is Result.Error -> _uiState.value = UiState.Error(result.exception.message ?: "Unknown error")
-            }
+            projectRepository.loadProjects()
         }
+    }
+
+    fun toggleFilter() {
+        _showOnlyManagerProjects.value = !_showOnlyManagerProjects.value
+    }
+
+    fun refresh() {
+        loadData()
     }
 }

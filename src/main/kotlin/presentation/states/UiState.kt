@@ -1,4 +1,4 @@
-package presentation.common
+package presentation.states
 
 sealed class UiState<out T> {
     object Loading : UiState<Nothing>()

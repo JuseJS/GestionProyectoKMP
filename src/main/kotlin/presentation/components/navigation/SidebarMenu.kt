@@ -1,7 +1,6 @@
-package presentation.components
+package presentation.components.navigation
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -12,22 +11,25 @@ import androidx.compose.material.icons.filled.PowerSettingsNew
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.navigator.Navigator
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import presentation.screen.LoginScreen
 import presentation.screen.ProjectsScreen
 import presentation.screen.WelcomeScreen
 import presentation.theme.Theme
+import presentation.viewmodel.LoginViewModel
 
 @Composable
 fun SidebarMenu(
     selectedItem: Int,
     onItemSelected: (Int) -> Unit,
-    onLogout: () -> Unit,
     modifier: Modifier = Modifier,
     navigator: Navigator?
 ) {
+    val sidebarViewModel = remember { SidebarMenuComponent() }
+
     Box(
         modifier = modifier
             .width(280.dp)
@@ -39,12 +41,10 @@ fun SidebarMenu(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.SpaceBetween
         ) {
-            // Menú principal
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                // Logo o título
                 Text(
                     text = "NeoTech",
                     style = MaterialTheme.typography.h6,
@@ -52,7 +52,6 @@ fun SidebarMenu(
                     modifier = Modifier.padding(vertical = 16.dp)
                 )
 
-                // Elementos del menú
                 MenuButton(
                     icon = Icons.Default.Home,
                     text = "Inicio",
@@ -62,7 +61,6 @@ fun SidebarMenu(
                         navigator?.push(WelcomeScreen())
                     }
                 )
-                /*
                 MenuButton(
                     icon = Icons.Default.Folder,
                     text = "Proyectos",
@@ -72,12 +70,13 @@ fun SidebarMenu(
                         navigator?.push(ProjectsScreen())
                     }
                 )
-                */
             }
 
-            // Botón de cerrar sesión
             Button(
-                onClick = onLogout,
+                onClick = {
+                    sidebarViewModel.loginViewModel.logout()
+                    navigator?.push(LoginScreen())
+                },
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = Theme.materialColors.error,
                     contentColor = Theme.materialColors.onError
@@ -105,44 +104,6 @@ fun SidebarMenu(
     }
 }
 
-@Composable
-private fun MenuButton(
-    icon: ImageVector,
-    text: String,
-    isSelected: Boolean,
-    onClick: () -> Unit
-) {
-    val backgroundColor = if (isSelected) {
-        Theme.materialColors.primary
-    } else {
-        Theme.colors.surfaceContainer
-    }
-
-    val contentColor = if (isSelected) {
-        Theme.materialColors.onPrimary
-    } else {
-        Theme.materialColors.onBackground
-    }
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(12.dp))
-            .background(backgroundColor)
-            .clickable(onClick = onClick)
-            .padding(16.dp),
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Icon(
-            imageVector = icon,
-            contentDescription = text,
-            tint = contentColor
-        )
-        Text(
-            text = text,
-            style = MaterialTheme.typography.button,
-            color = contentColor
-        )
-    }
+private class SidebarMenuComponent : KoinComponent {
+    val loginViewModel: LoginViewModel by inject()
 }

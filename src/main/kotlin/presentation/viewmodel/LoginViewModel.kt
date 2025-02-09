@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import presentation.common.UiState
+import presentation.states.UiState
 
 class LoginViewModel(
     private val loginUseCase: LoginUseCase,
