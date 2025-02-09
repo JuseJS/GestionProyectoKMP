@@ -3,7 +3,7 @@ package domain.model
 import java.time.LocalDateTime
 
 data class Project(
-    val id: String,
+    val id: Int,
     val name: String,
     val description: String,
     val creationDate: LocalDateTime,

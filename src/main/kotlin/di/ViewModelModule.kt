@@ -1,10 +1,11 @@
 package di
 
-import domain.usecase.auth.LoginUseCase
+import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
 import presentation.viewmodel.LoginViewModel
+import presentation.viewmodel.WelcomeViewModel
 
 val viewModelModule = module {
-    factory { LoginUseCase(get()) }
-    factory { LoginViewModel(get()) }
+    factoryOf(::LoginViewModel)
+    factoryOf(::WelcomeViewModel)
 }

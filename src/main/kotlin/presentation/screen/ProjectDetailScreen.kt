@@ -12,14 +12,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
+import domain.model.Project
 import domain.model.Task
 import presentation.components.*
 import presentation.components.task.TaskCard
 import presentation.theme.Theme
-import java.time.LocalDate
 import java.time.LocalDateTime
 
-class ProjectDetailScreen(private val project: ProjectData) : Screen {
+class ProjectDetailScreen(private val project: Project) : Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.current
@@ -111,7 +111,7 @@ class ProjectDetailScreen(private val project: ProjectData) : Screen {
     }
 
     @Composable
-    private fun ProjectDetailsCard(project: ProjectData) {
+    private fun ProjectDetailsCard(project: Project) {
         ContentCard {
             Column(
                 modifier = Modifier.padding(24.dp),
@@ -138,7 +138,7 @@ class ProjectDetailScreen(private val project: ProjectData) : Screen {
                     InfoItem(
                         icon = Icons.Default.Business,
                         label = "Cliente",
-                        value = project.clientCompany
+                        value = project.clientName
                     )
 
                     InfoItem(

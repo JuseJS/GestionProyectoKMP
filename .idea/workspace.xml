@@ -4,11 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23211b55-b534-4dbf-b58d-446d04ed4ea2" name="Changes" comment="muchos errores">
+    <list default="true" id="23211b55-b534-4dbf-b58d-446d04ed4ea2" name="Changes" comment="login fixed">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/mappers/ProjectMappers.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/domain/usecase/project/GetActiveProjectsUseCase.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/domain/usecase/project/GetManagerProjectsUseCase.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/components/ContentSection.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/components/HeaderSection.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/components/common/ErrorMessage.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/components/common/LoadingScreen.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/ApiClient.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/ApiClient.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/ApiService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/ApiService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/di/ApiModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/di/ApiModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/repository/ProjectRepositoryImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/repository/ProjectRepositoryImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/di/UseCaseModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/di/UseCaseModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/di/ViewModelModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/di/ViewModelModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/domain/model/Project.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/domain/model/Project.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/domain/repository/ProjectRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/domain/repository/ProjectRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/presentation/components/ProjectCard.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/components/ProjectCard.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/presentation/screen/ProjectDetailScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/screen/ProjectDetailScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/presentation/screen/WelcomeScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/screen/WelcomeScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/presentation/viewmodel/WelcomeViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/viewmodel/WelcomeViewModel.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,6 +84,9 @@
       <recent name="$PROJECT_DIR$/src/main/kotlin/data" />
     </key>
     <key name="K2MoveDeclarationsDialog.RECENT_PACKAGE_KEY">
+      <recent name="presentation.components.common" />
+      <recent name="presentation.components" />
+      <recent name="presentation.common" />
       <recent name="presentation.components.task" />
     </key>
   </component>
@@ -106,13 +123,22 @@
       <option name="project" value="LOCAL" />
       <updated>1739056470843</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="login fixed">
+      <option name="closed" value="true" />
+      <created>1739095282670</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1739095282670</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Project" />
     <MESSAGE value="Cambios varios" />
     <MESSAGE value="muchos errores" />
-    <option name="LAST_COMMIT_MESSAGE" value="muchos errores" />
+    <MESSAGE value="login fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="login fixed" />
   </component>
 </project>

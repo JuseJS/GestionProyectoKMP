@@ -16,23 +16,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.unit.dp
+import domain.model.Project
 import presentation.theme.Theme
-import java.time.LocalDate
-
-data class ProjectData(
-    val id: Int,
-    val name: String,
-    val description: String,
-    val startDate: LocalDate,
-    val clientCompany: String,
-    val endDate: LocalDate? = null,
-    val isUserAssigned: Boolean = false
-)
 
 @Composable
 fun ProjectCard(
-    project: ProjectData,
-    onClick: (ProjectData) -> Unit,
+    project: Project,
+    onClick: (Project) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val interactionSource = remember { MutableInteractionSource() }
@@ -84,7 +74,7 @@ fun ProjectCard(
                     tint = Theme.materialColors.primary
                 )
                 Text(
-                    text = project.clientCompany,
+                    text = project.clientName,
                     style = MaterialTheme.typography.body2,
                     color = Theme.materialColors.onBackground
                 )
