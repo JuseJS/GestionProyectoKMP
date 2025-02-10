@@ -4,8 +4,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Business
-import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -21,6 +19,7 @@ import presentation.components.common.ErrorMessage
 import presentation.components.common.LoadingScreen
 import presentation.components.task.EmptyTasksMessage
 import presentation.components.task.TasksList
+import presentation.theme.Theme
 import presentation.viewmodel.ProjectDetailViewModel
 
 class ProjectDetailScreen(private val project: Project) : Screen, KoinComponent {
@@ -30,11 +29,12 @@ class ProjectDetailScreen(private val project: Project) : Screen, KoinComponent 
     override fun Content() {
         val navigator = LocalNavigator.current
         val uiState by viewModel.uiState.collectAsState()
+        val programmers by viewModel.programmers.collectAsState()
         var selectedItem by remember { mutableStateOf(1) }
 
-        // Inicializar el viewModel con el proyecto actual
         LaunchedEffect(project) {
             viewModel.initProject(project)
+            viewModel.loadProgrammers(project.id)
         }
 
         BaseScreen(
@@ -53,7 +53,6 @@ class ProjectDetailScreen(private val project: Project) : Screen, KoinComponent 
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.spacedBy(24.dp)
                     ) {
-                        // Back Button
                         item {
                             BackButton(
                                 text = "Volver a Proyectos",
@@ -61,7 +60,6 @@ class ProjectDetailScreen(private val project: Project) : Screen, KoinComponent 
                             )
                         }
 
-                        // Project Details Card
                         item {
                             ProjectCard(
                                 project = project,
@@ -69,15 +67,56 @@ class ProjectDetailScreen(private val project: Project) : Screen, KoinComponent 
                             )
                         }
 
-                        // Tasks Section Header
+                        // Programadores Section
+                        item {
+                            ContentSection(title = "Programadores Asignados") {
+                                if (programmers.isEmpty()) {
+                                    Text(
+                                        text = "No hay programadores asignados",
+                                        style = MaterialTheme.typography.body1,
+                                        color = Theme.colors.textSecondary
+                                    )
+                                } else {
+                                    Column(
+                                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                                    ) {
+                                        programmers.forEach { programmer ->
+                                            Card(
+                                                backgroundColor = Theme.colors.surfaceContainerHigh,
+                                                elevation = 0.dp,
+                                                modifier = Modifier.fillMaxWidth()
+                                            ) {
+                                                Row(
+                                                    modifier = Modifier.padding(16.dp),
+                                                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                                ) {
+                                                    Icon(
+                                                        imageVector = Icons.Default.Person,
+                                                        contentDescription = null,
+                                                        tint = Theme.materialColors.primary
+                                                    )
+                                                    Text(
+                                                        text = programmer.name,
+                                                        color = Theme.materialColors.onBackground
+                                                    )
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
                         item {
                             HeaderSection(
                                 title = "Tareas del Proyecto",
                                 content = {
                                     Button(
-                                        onClick = {
-                                            // TODO: Implementar navegación a pantalla de crear tarea
-                                        }
+                                        onClick = { navigator?.push(CreateTaskScreen(project)) },
+                                        colors = ButtonDefaults.buttonColors(
+                                            backgroundColor = Theme.materialColors.primary,
+                                            contentColor = Theme.materialColors.onPrimary
+                                        )
                                     ) {
                                         Text("Nueva Tarea")
                                     }
@@ -85,7 +124,6 @@ class ProjectDetailScreen(private val project: Project) : Screen, KoinComponent 
                             )
                         }
 
-                        // Tasks List
                         item {
                             if (state.data.tasks.isEmpty()) {
                                 EmptyTasksMessage()
@@ -93,7 +131,7 @@ class ProjectDetailScreen(private val project: Project) : Screen, KoinComponent 
                                 TasksList(
                                     tasks = state.data.tasks,
                                     onTaskClick = { task ->
-                                        // TODO: Implementar navegación a detalle de tarea
+                                        navigator?.push(TaskDetailScreen(task))
                                     }
                                 )
                             }

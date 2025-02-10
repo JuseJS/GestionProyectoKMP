@@ -7,6 +7,7 @@ import data.network.rest.model.requests.CreateTaskRequest
 import data.network.rest.model.requests.LoginRequest
 import data.network.rest.model.responses.AssignProgrammerResponse
 import data.network.rest.model.responses.AuthResponse
+import data.network.rest.model.responses.ProjectProgrammerResponse
 import data.network.rest.model.responses.ProjectResponse
 import data.network.rest.model.responses.TaskResponse
 import kotlinx.serialization.json.Json
@@ -21,6 +22,7 @@ interface ApiService {
     suspend fun getManagerEndedProjects(managerId: Int): List<ProjectResponse>
     suspend fun createProject(request: CreateProjectRequest): ProjectResponse
     suspend fun assignProgrammerToProject(request: AssignProgrammerRequest): AssignProgrammerResponse
+    suspend fun getProjectProgrammers(projectId: Int): List<ProjectProgrammerResponse>
 
     // Tareas
     suspend fun getProjectTasks(projectId: Int): List<TaskResponse>
@@ -62,6 +64,9 @@ internal class ApiServiceImpl @PublishedApi internal constructor(
         println("Raw response: $response")
         return Json.decodeFromString<List<ProjectResponse>>(response)
     }
+
+    override suspend fun getProjectProgrammers(projectId: Int): List<ProjectProgrammerResponse> =
+        apiClient.get("/proyectos/$projectId/obtener-programadores")
 
     override suspend fun createProject(request: CreateProjectRequest): ProjectResponse =
         apiClient.post<ProjectResponse, _>("/proyectos", request)

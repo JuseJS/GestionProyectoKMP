@@ -9,5 +9,6 @@ data class CreateTaskRequest(
     @SerialName("nombre") val name: String,
     @SerialName("descripcion") val description: String,
     @SerialName("estimacion") val estimation: Int,
-    @SerialName("proyecto") val project: Int
+    @SerialName("proyecto") val project: Int,
+    @SerialName("programador") val programmer: Int?
 )

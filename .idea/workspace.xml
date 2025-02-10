@@ -4,28 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23211b55-b534-4dbf-b58d-446d04ed4ea2" name="Changes" comment="welcomescreen with api">
-      <change afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/mappers/TaskMappers.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/requests/AssignTaskProgrammerRequest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/components/task/EmptyTasksMessage.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/components/task/TasksList.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/util/ParseDateTime.kt" afterDir="false" />
+    <list default="true" id="23211b55-b534-4dbf-b58d-446d04ed4ea2" name="Changes" comment="updated taskcard">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/responses/ProjectProgrammerResponse.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/screen/CreateTaskScreen.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/ApiService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/ApiService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/mappers/ProjectMappers.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/mappers/ProjectMappers.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/requests/AssignTaskRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/requests/AssignTaskRequest.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/requests/CreateTaskRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/requests/CreateTaskRequest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/responses/AssignProgrammerResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/responses/AssignProgrammerResponse.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/responses/TaskResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/responses/TaskResponse.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/repository/ProjectRepositoryImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/repository/ProjectRepositoryImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/responses/ProgrammerResponse.kt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/repository/TaskRepositoryImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/repository/TaskRepositoryImpl.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/di/RepositoryModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/di/RepositoryModule.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/di/ViewModelModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/di/ViewModelModule.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/domain/repository/TaskRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/domain/repository/TaskRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/presentation/components/task/TaskCard.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/components/task/TaskCard.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/presentation/screen/ProjectDetailScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/screen/ProjectDetailScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/presentation/states/TasksState.kt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/presentation/viewmodel/ProjectDetailViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/viewmodel/ProjectDetailViewModel.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -70,21 +58,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.Build GestionProyectoKMP.executor": "Run",
-    "Gradle.desktop.executor": "Run",
-    "Kotlin.MainKt.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/navarro/IdeaProjects/GestionProyectoKMP/src/main/kotlin/presentation/components/task",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.Build GestionProyectoKMP.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.desktop.executor&quot;: &quot;Run&quot;,
+    &quot;Kotlin.MainKt.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/navarro/IdeaProjects/GestionProyectoKMP/src/main/kotlin/presentation/components/task&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/kotlin/presentation/components/task" />
@@ -159,7 +147,23 @@
       <option name="project" value="LOCAL" />
       <updated>1739122211115</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="ProjectDetailScreen.kt">
+      <option name="closed" value="true" />
+      <created>1739141032442</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1739141032443</updated>
+    </task>
+    <task id="LOCAL-00008" summary="updated taskcard">
+      <option name="closed" value="true" />
+      <created>1739208047246</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1739208047246</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -169,6 +173,8 @@
     <MESSAGE value="login fixed" />
     <MESSAGE value="errors fixed" />
     <MESSAGE value="welcomescreen with api" />
-    <option name="LAST_COMMIT_MESSAGE" value="welcomescreen with api" />
+    <MESSAGE value="ProjectDetailScreen.kt" />
+    <MESSAGE value="updated taskcard" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated taskcard" />
   </component>
 </project>
