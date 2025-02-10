@@ -6,6 +6,7 @@ import data.network.rest.model.requests.CreateProjectRequest
 import data.network.rest.model.requests.CreateTaskRequest
 import data.network.rest.model.requests.LoginRequest
 import data.network.rest.model.responses.AssignProgrammerResponse
+import data.network.rest.model.responses.AssignTaskResponse
 import data.network.rest.model.responses.AuthResponse
 import data.network.rest.model.responses.ProgrammerResponse
 import data.network.rest.model.responses.ProjectResponse
@@ -27,7 +28,7 @@ interface ApiService {
     // Tareas
     suspend fun getProjectTasks(projectId: Int): List<TaskResponse>
     suspend fun createTask(request: CreateTaskRequest): TaskResponse
-    suspend fun assignTask(request: AssignTaskRequest): TaskResponse
+    suspend fun assignTask(request: AssignTaskRequest): AssignTaskResponse
 
     // Programadores
     suspend fun getAllProgrammers(): List<ProgrammerResponse>
@@ -82,7 +83,7 @@ internal class ApiServiceImpl @PublishedApi internal constructor(
         return apiClient.post("/tareas/crear", request)
     }
 
-    override suspend fun assignTask(request: AssignTaskRequest): TaskResponse =
+    override suspend fun assignTask(request: AssignTaskRequest): AssignTaskResponse =
         apiClient.post("/tareas/asignar-programador", request)
 
     override suspend fun getAllProgrammers(): List<ProgrammerResponse> =

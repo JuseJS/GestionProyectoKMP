@@ -15,5 +15,5 @@ interface TaskRepository {
     suspend fun loadProjectTasks(project: Project)
     suspend fun getProjectTasks(projectId: Int): Result<List<Task>>
     suspend fun createTask(request: CreateTaskRequest): Result<Task>
-    suspend fun assignTask(request: AssignTaskRequest): Result<Task>
+    suspend fun assignTask(request: AssignTaskRequest): Result<Unit>
 }

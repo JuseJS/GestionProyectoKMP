@@ -4,6 +4,7 @@ import org.koin.dsl.module
 import presentation.viewmodel.LoginViewModel
 import presentation.viewmodel.ProjectViewModel
 import presentation.viewmodel.ProjectDetailViewModel
+import presentation.viewmodel.TaskDetailViewModel
 import presentation.viewmodel.WelcomeViewModel
 
 val viewModelModule = module {
@@ -17,6 +18,13 @@ val viewModelModule = module {
 
     factory {
         ProjectDetailViewModel(
+            taskRepository = get(),
+            projectRepository = get()
+        )
+    }
+
+    factory {
+        TaskDetailViewModel(
             taskRepository = get(),
             projectRepository = get()
         )

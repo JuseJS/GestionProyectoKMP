@@ -5,6 +5,7 @@ import data.network.rest.ApiService
 import data.network.rest.model.mappers.toDomain
 import data.network.rest.model.requests.CreateTaskRequest
 import data.network.rest.model.requests.AssignTaskRequest
+import data.network.rest.model.responses.AssignTaskResponse
 import domain.common.Result
 import domain.model.Task
 import domain.model.Project
@@ -60,9 +61,13 @@ class TaskRepositoryImpl(
         Result.Error(e)
     }
 
-    override suspend fun assignTask(request: AssignTaskRequest): Result<Task> = try {
-        val response = apiService.assignTask(request)
-        Result.Success(response.toDomain())
+    override suspend fun assignTask(request: AssignTaskRequest): Result<Unit> = try {
+        apiService.assignTask(request)
+        val currentState = _projectDetailState.value
+        if (currentState is UiState.Success) {
+            loadProjectTasks(currentState.data.project)
+        }
+        Result.Success(Unit)
     } catch (e: Exception) {
         Result.Error(e)
     }

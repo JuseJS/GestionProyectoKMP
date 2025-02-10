@@ -1,157 +1,70 @@
 package presentation.screen
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import domain.model.Task
-import presentation.components.navigation.SidebarMenu
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import presentation.components.BackButton
+import presentation.components.BaseScreen
+import presentation.components.project.AssignProgrammerDialog
 import presentation.components.task.TaskDetailsCard
-import presentation.theme.Theme
+import presentation.viewmodel.TaskDetailViewModel
 
-class TaskDetailScreen(private val task: Task) : Screen {
+class TaskDetailScreen(private val task: Task) : Screen, KoinComponent {
+    private val viewModel: TaskDetailViewModel by inject()
+
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.current
         var selectedItem by remember { mutableStateOf(1) }
         var showAssignDialog by remember { mutableStateOf(false) }
 
-        // Lista de ejemplo de programadores disponibles
-        val availableDevelopers = remember {
-            listOf(
-                "Ana García",
-                "Carlos Rodríguez",
-                "María López",
-                "Juan Pérez",
-                "Laura Torres"
-            )
+        val availableProgrammers by viewModel.availableProgrammers.collectAsState()
+        val currentTask by viewModel.currentTask.collectAsState()
+        val currentProgrammer by viewModel.currentProgrammer.collectAsState()
+
+        LaunchedEffect(task) {
+            viewModel.initTask(task)
         }
 
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = Theme.materialColors.background
+        BaseScreen(
+            selectedItem = selectedItem,
+            onItemSelected = { selectedItem = it },
+            navigator = navigator
         ) {
-            Row(modifier = Modifier.fillMaxSize()) {
-                // SideMenu
-                SidebarMenu(
-                    selectedItem = selectedItem,
-                    onItemSelected = { selectedItem = it },
-                    navigator = navigator
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.spacedBy(24.dp)
+            ) {
+                BackButton(
+                    text = "Volver al Proyecto",
+                    onClick = { navigator?.pop() }
                 )
 
-                // Contenido principal
-                Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxHeight()
-                        .padding(24.dp)
-                ) {
-                    Column(
-                        modifier = Modifier.fillMaxSize(),
-                        verticalArrangement = Arrangement.spacedBy(24.dp)
-                    ) {
-                        // Botón de retorno
-                        Button(
-                            onClick = { navigator?.pop() },
-                            colors = ButtonDefaults.buttonColors(
-                                backgroundColor = Theme.colors.surfaceContainer,
-                                contentColor = Theme.materialColors.primary
-                            ),
-                            elevation = ButtonDefaults.elevation(
-                                defaultElevation = 0.dp,
-                                pressedElevation = 0.dp
-                            ),
-                            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-                            shape = RoundedCornerShape(8.dp),
-                            modifier = Modifier.padding(bottom = 16.dp)
-                        ) {
-                            Row(
-                                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.ArrowBack,
-                                    contentDescription = "Volver",
-                                    tint = Theme.materialColors.primary
-                                )
-                                Text(
-                                    text = "Volver a Proyecto",
-                                    color = Theme.materialColors.primary
-                                )
-                            }
-                        }
-
-                        // Detalles de la tarea
-                        TaskDetailsCard(
-                            task = task,
-                            onAssignClick = { showAssignDialog = true }
-                        )
-                    }
+                currentTask?.let { task ->
+                    TaskDetailsCard(
+                        task = task,
+                        programmer = currentProgrammer,
+                        onAssignClick = { showAssignDialog = true }
+                    )
                 }
             }
-        }
 
-        // Diálogo para asignar programador
-        if (showAssignDialog) {
-            AlertDialog(
-                onDismissRequest = { showAssignDialog = false },
-                title = {
-                    Text(
-                        "Asignar Programador",
-                        style = MaterialTheme.typography.h6,
-                        color = Theme.materialColors.onBackground
-                    )
-                },
-                text = {
-                    Column {
-                        availableDevelopers.forEach { developer ->
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(vertical = 8.dp)
-                                    .clickable {
-                                        showAssignDialog = false
-                                    },
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(8.dp)
-                            ) {
-                                val selectedDeveloper = null
-                                RadioButton(
-                                    selected = developer == selectedDeveloper,
-                                    onClick = {
-                                        showAssignDialog = false
-                                    },
-                                    colors = RadioButtonDefaults.colors(
-                                        selectedColor = Theme.materialColors.primary
-                                    )
-                                )
-                                Text(
-                                    text = developer,
-                                    color = Theme.materialColors.onBackground
-                                )
-                            }
-                        }
-                    }
-                },
-                confirmButton = {
-                    TextButton(onClick = { showAssignDialog = false }) {
-                        Text(
-                            "Cancelar",
-                            color = Theme.materialColors.primary
-                        )
-                    }
-                },
-                backgroundColor = Theme.colors.surfaceContainer,
-                shape = RoundedCornerShape(16.dp)
-            )
+            if (showAssignDialog) {
+                AssignProgrammerDialog(
+                    availableProgrammers = availableProgrammers,
+                    onProgrammerSelected = { programmerId ->
+                        viewModel.assignProgrammer(programmerId)
+                        showAssignDialog = false
+                    },
+                    onDismiss = { showAssignDialog = false }
+                )
+            }
         }
     }
 }

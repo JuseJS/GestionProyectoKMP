@@ -104,18 +104,6 @@ class ProjectDetailViewModel(
         }
     }
 
-    fun assignTask(taskId: Int, programmerId: Int) {
-        scope.launch {
-            val request = AssignTaskRequest(programmerId, taskId)
-            when (val result = taskRepository.assignTask(request)) {
-                is Result.Success -> loadData()
-                is Result.Error -> {
-                    println("[ERROR] Failed to assign task: ${result.exception.message}")
-                }
-            }
-        }
-    }
-
     fun createTask(
         name: String,
         description: String,

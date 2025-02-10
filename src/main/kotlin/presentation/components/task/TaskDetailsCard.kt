@@ -22,12 +22,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import domain.model.Programmer
 import domain.model.Task
 import presentation.theme.Theme
 
 @Composable
 fun TaskDetailsCard(
     task: Task,
+    programmer: Programmer?,
     onAssignClick: () -> Unit
 ) {
     Card(
@@ -102,36 +104,13 @@ fun TaskDetailsCard(
                     )
                 }
 
-                // Sección de asignación de programador
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Person,
-                            contentDescription = "Programador",
-                            tint = Theme.materialColors.primary
-                        )
-                        Column {
-                            Text(
-                                text = "Programador Asignado",
-                                style = MaterialTheme.typography.caption,
-                                color = Theme.colors.textSecondary
-                            )
-                            val selectedDeveloper = null
-                            Text(
-                                text = selectedDeveloper ?: "Sin asignar",
-                                style = MaterialTheme.typography.body2,
-                                color = Theme.materialColors.onBackground
-                            )
-                        }
-                    }
+                TaskDetailItem(
+                    icon = Icons.Default.Person,
+                    label = "Programador Asignado",
+                    value = programmer?.name ?: "Sin asignar"
+                )
 
+                if (task.programmerId == null) {
                     Button(
                         onClick = onAssignClick,
                         colors = ButtonDefaults.buttonColors(

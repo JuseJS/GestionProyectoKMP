@@ -4,23 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23211b55-b534-4dbf-b58d-446d04ed4ea2" name="Changes" comment="fixed assign programmer to project">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/mappers/ProgrammerMappers.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/responses/ProgrammerResponse.kt" afterDir="false" />
+    <list default="true" id="23211b55-b534-4dbf-b58d-446d04ed4ea2" name="Changes" comment="Fixed ProjectDetailScreen.kt layout">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/responses/AssignTaskResponse.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/ApiService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/ApiService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/requests/AssignProgrammerRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/requests/AssignProgrammerRequest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/responses/AssignProgrammerResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/responses/AssignProgrammerResponse.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/responses/ProjectProgrammerResponse.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/repository/ProjectRepositoryImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/repository/ProjectRepositoryImpl.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/repository/TaskRepositoryImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/repository/TaskRepositoryImpl.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/di/ViewModelModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/di/ViewModelModule.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/domain/model/Programmer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/domain/model/Programmer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/domain/repository/ProjectRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/domain/repository/ProjectRepository.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/domain/repository/TaskRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/domain/repository/TaskRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/presentation/screen/CreateTaskScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/screen/CreateTaskScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/presentation/screen/ProjectDetailScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/screen/ProjectDetailScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/presentation/components/task/TaskDetailsCard.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/components/task/TaskDetailsCard.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/presentation/screen/TaskDetailScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/screen/TaskDetailScreen.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/presentation/viewmodel/ProjectDetailViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/viewmodel/ProjectDetailViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/presentation/viewmodel/TaskDetailViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/presentation/viewmodel/TaskDetailViewModel.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -193,7 +187,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739220479927</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Fixed ProjectDetailScreen.kt layout">
+      <option name="closed" value="true" />
+      <created>1739220715951</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1739220715951</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -208,6 +210,7 @@
     <MESSAGE value="CHnages in create task" />
     <MESSAGE value="Fixed CreateTaskScreen.kt" />
     <MESSAGE value="fixed assign programmer to project" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed assign programmer to project" />
+    <MESSAGE value="Fixed ProjectDetailScreen.kt layout" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed ProjectDetailScreen.kt layout" />
   </component>
 </project>
