@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import domain.model.Programmer
 import domain.model.Task
 import presentation.components.InfoItem
 import presentation.components.StatusChip
@@ -21,8 +22,11 @@ import presentation.theme.Theme
 @Composable
 fun TaskCard(
     task: Task,
+    programmers: List<Programmer>,
     onClick: (Task) -> Unit
 ) {
+    val assignedProgrammer = programmers.firstOrNull { it.id == task.programmerId }
+
     Card(
         modifier = Modifier
             .clickable { onClick(task) }
@@ -70,7 +74,7 @@ fun TaskCard(
                 InfoItem(
                     icon = Icons.Default.Person,
                     label = "Asignado a",
-                    value = (task.programmerId ?: "Sin asignar").toString(),
+                    value = assignedProgrammer?.name ?: "Sin asignar",
                     iconSize = Modifier.size(16.dp)
                 )
 

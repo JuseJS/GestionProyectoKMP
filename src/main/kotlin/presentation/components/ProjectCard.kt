@@ -78,7 +78,6 @@ fun ProjectCard(
 
             // Información adicional
             if (isDetailView) {
-                // Vista detalle con tres InfoItems
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
@@ -102,7 +101,6 @@ fun ProjectCard(
                     )
                 }
             } else {
-                // Vista de lista con información compacta
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween

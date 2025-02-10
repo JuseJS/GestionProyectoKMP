@@ -142,6 +142,7 @@ class ProjectDetailScreen(private val project: Project) : Screen, KoinComponent 
                                 } else {
                                     TasksList(
                                         tasks = state.data.tasks,
+                                        programmers = projectProgrammers,
                                         onTaskClick = { task ->
                                             navigator?.push(TaskDetailScreen(task))
                                         }
