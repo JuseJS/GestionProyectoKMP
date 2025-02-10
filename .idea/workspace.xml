@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23211b55-b534-4dbf-b58d-446d04ed4ea2" name="Changes" comment="Fixed CreateTaskScreen.kt">
+    <list default="true" id="23211b55-b534-4dbf-b58d-446d04ed4ea2" name="Changes" comment="fixed assign programmer to project">
       <change afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/mappers/ProgrammerMappers.kt" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/responses/ProgrammerResponse.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/ApiService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/ApiService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/requests/AssignProgrammerRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/requests/AssignProgrammerRequest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/responses/AssignProgrammerResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/responses/AssignProgrammerResponse.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/network/rest/model/responses/ProjectProgrammerResponse.kt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/repository/ProjectRepositoryImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/repository/ProjectRepositoryImpl.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/repository/TaskRepositoryImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/repository/TaskRepositoryImpl.kt" afterDir="false" />
@@ -183,7 +185,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739219137300</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="fixed assign programmer to project">
+      <option name="closed" value="true" />
+      <created>1739220479927</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1739220479927</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -197,6 +207,7 @@
     <MESSAGE value="updated taskcard" />
     <MESSAGE value="CHnages in create task" />
     <MESSAGE value="Fixed CreateTaskScreen.kt" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed CreateTaskScreen.kt" />
+    <MESSAGE value="fixed assign programmer to project" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed assign programmer to project" />
   </component>
 </project>

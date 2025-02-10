@@ -1,28 +1,25 @@
 package presentation.screen
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
-import domain.model.Programmer
 import domain.model.Project
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import presentation.states.UiState
 import presentation.components.*
 import presentation.components.common.ErrorMessage
 import presentation.components.common.LoadingScreen
+import presentation.components.project.AssignProgrammerDialog
 import presentation.components.task.EmptyTasksMessage
 import presentation.components.task.TasksList
+import presentation.states.UiState
 import presentation.theme.Theme
 import presentation.viewmodel.ProjectDetailViewModel
 
@@ -126,9 +123,9 @@ class ProjectDetailScreen(private val project: Project) : Screen, KoinComponent 
                         }
 
                         item {
-                            HeaderSection(
+                            ContentSection(
                                 title = "Tareas del Proyecto",
-                                content = {
+                                actions = {
                                     Button(
                                         onClick = { navigator?.push(CreateTaskScreen(project)) },
                                         colors = ButtonDefaults.buttonColors(
@@ -139,19 +136,17 @@ class ProjectDetailScreen(private val project: Project) : Screen, KoinComponent 
                                         Text("Nueva Tarea")
                                     }
                                 }
-                            )
-                        }
-
-                        item {
-                            if (state.data.tasks.isEmpty()) {
-                                EmptyTasksMessage()
-                            } else {
-                                TasksList(
-                                    tasks = state.data.tasks,
-                                    onTaskClick = { task ->
-                                        navigator?.push(TaskDetailScreen(task))
-                                    }
-                                )
+                            ) {
+                                if (state.data.tasks.isEmpty()) {
+                                    EmptyTasksMessage()
+                                } else {
+                                    TasksList(
+                                        tasks = state.data.tasks,
+                                        onTaskClick = { task ->
+                                            navigator?.push(TaskDetailScreen(task))
+                                        }
+                                    )
+                                }
                             }
                         }
                     }
@@ -169,61 +164,4 @@ class ProjectDetailScreen(private val project: Project) : Screen, KoinComponent 
             }
         }
     }
-}
-
-@Composable
-private fun AssignProgrammerDialog(
-    availableProgrammers: List<Programmer>,
-    onProgrammerSelected: (Int) -> Unit,
-    onDismiss: () -> Unit
-) {
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        title = {
-            Text(
-                "Asignar Programador",
-                style = MaterialTheme.typography.h6,
-                color = Theme.materialColors.onBackground
-            )
-        },
-        text = {
-            if (availableProgrammers.isEmpty()) {
-                Text(
-                    "No hay programadores disponibles para asignar",
-                    color = Theme.colors.textSecondary
-                )
-            } else {
-                Column {
-                    availableProgrammers.forEach { programmer ->
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clickable {
-                                    onProgrammerSelected(programmer.id)
-                                    onDismiss()
-                                }
-                                .padding(vertical = 8.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = programmer.name,
-                                color = Theme.materialColors.onBackground,
-                                style = MaterialTheme.typography.body1
-                            )
-                        }
-                    }
-                }
-            }
-        },
-        confirmButton = {
-            TextButton(onClick = onDismiss) {
-                Text(
-                    "Cancelar",
-                    color = Theme.materialColors.primary
-                )
-            }
-        },
-        backgroundColor = Theme.colors.surfaceContainer,
-        shape = RoundedCornerShape(16.dp)
-    )
 }
