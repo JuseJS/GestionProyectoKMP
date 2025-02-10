@@ -3,6 +3,7 @@ package presentation.viewmodel
 import data.network.rest.model.requests.AssignTaskRequest
 import data.network.rest.model.requests.CreateTaskRequest
 import data.network.rest.model.responses.ProjectProgrammerResponse
+import data.store.UserStore
 import domain.common.Result
 import domain.model.Project
 import domain.model.User
@@ -23,7 +24,6 @@ class ProjectDetailViewModel(
     private val _currentProject = MutableStateFlow<Project?>(null)
     private val _programmers = MutableStateFlow<List<ProjectProgrammerResponse>>(emptyList())
     val programmers: StateFlow<List<ProjectProgrammerResponse>> = _programmers.asStateFlow()
-    private val _currentUser = MutableStateFlow<User?>(null)
 
     // Estado de la UI
     val uiState: StateFlow<UiState<ProjectDetailState>> = taskRepository.projectDetailState
@@ -83,8 +83,14 @@ class ProjectDetailViewModel(
     ) {
         scope.launch {
             _currentProject.value?.let { project ->
+                val currentUser = UserStore.currentUser.value
+                if (currentUser == null) {
+                    println("[ERROR] No user logged in")
+                    return@launch
+                }
+
                 val request = CreateTaskRequest(
-                    manager = _currentUser.value?.id ?: 1,
+                    manager = currentUser.id,
                     name = name,
                     description = description,
                     estimation = estimation,
@@ -92,8 +98,7 @@ class ProjectDetailViewModel(
                     programmer = programmerId
                 )
 
-                // Log de depuración para la solicitud
-                println("[DEBUG] Attempting to create task with request: $request")
+                println("[DEBUG] Creating task with request: $request")
 
                 when (val result = taskRepository.createTask(request)) {
                     is Result.Success -> {
@@ -101,15 +106,7 @@ class ProjectDetailViewModel(
                         loadData()
                     }
                     is Result.Error -> {
-                        result.exception?.let { e ->
-                            println("[EXCEPTION] ${e::class.simpleName}: ${e.message}")
-                            e.printStackTrace()
-                        }
-
-                        // Log adicional para contexto
-                        println("[DEBUG] Failed request details: $request")
-                        println("[DEBUG] Current project: ${project.id}")
-                        println("[DEBUG] Current user: ${_currentUser.value?.id}")
+                        println("[ERROR] Failed to create task: ${result.exception.message}")
                     }
                 }
             } ?: run {

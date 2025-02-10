@@ -27,8 +27,6 @@ class CreateTaskScreen(private val project: Project) : Screen, KoinComponent {
     override fun Content() {
         val navigator = LocalNavigator.current
         var selectedItem by remember { mutableStateOf(1) }
-        val currentUser by UserStore.currentUser.collectAsState()
-
         var name by remember { mutableStateOf("") }
         var description by remember { mutableStateOf("") }
         var estimation by remember { mutableStateOf("") }
@@ -39,6 +37,7 @@ class CreateTaskScreen(private val project: Project) : Screen, KoinComponent {
         var expandedDropdown by remember { mutableStateOf(false) }
 
         LaunchedEffect(Unit) {
+            viewModel.initProject(project)
             programmers = viewModel.getProjectProgrammers(project.id)
         }
 
@@ -171,22 +170,14 @@ class CreateTaskScreen(private val project: Project) : Screen, KoinComponent {
                                     return@Button
                                 }
 
-                                currentUser?.let { user ->
-                                    viewModel.createTask(
-                                        name = name,
-                                        description = description,
-                                        estimation = estimationInt,
-                                        programmerId = selectedProgrammerId
-                                    )
-                                    navigator?.pop()
-                                }
-                            },
-                            modifier = Modifier.fillMaxWidth(),
-                            shape = RoundedCornerShape(8.dp),
-                            colors = ButtonDefaults.buttonColors(
-                                backgroundColor = Theme.materialColors.primary,
-                                contentColor = Theme.materialColors.onPrimary
-                            )
+                                viewModel.createTask(
+                                    name = name,
+                                    description = description,
+                                    estimation = estimationInt,
+                                    programmerId = selectedProgrammerId
+                                )
+                                navigator?.pop()
+                            }
                         ) {
                             Text("Crear Tarea")
                         }
