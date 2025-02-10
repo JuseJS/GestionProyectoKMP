@@ -1,15 +1,19 @@
 package presentation.screen
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
+import domain.model.Programmer
 import domain.model.Project
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -29,12 +33,13 @@ class ProjectDetailScreen(private val project: Project) : Screen, KoinComponent 
     override fun Content() {
         val navigator = LocalNavigator.current
         val uiState by viewModel.uiState.collectAsState()
-        val programmers by viewModel.programmers.collectAsState()
+        val projectProgrammers by viewModel.projectProgrammers.collectAsState()
+        val availableProgrammers by viewModel.availableProgrammers.collectAsState()
         var selectedItem by remember { mutableStateOf(1) }
+        var showAssignProgrammerDialog by remember { mutableStateOf(false) }
 
         LaunchedEffect(project) {
             viewModel.initProject(project)
-            viewModel.loadProgrammers(project.id)
         }
 
         BaseScreen(
@@ -69,8 +74,21 @@ class ProjectDetailScreen(private val project: Project) : Screen, KoinComponent 
 
                         // Programadores Section
                         item {
-                            ContentSection(title = "Programadores Asignados") {
-                                if (programmers.isEmpty()) {
+                            ContentSection(
+                                title = "Programadores Asignados",
+                                actions = {
+                                    Button(
+                                        onClick = { showAssignProgrammerDialog = true },
+                                        colors = ButtonDefaults.buttonColors(
+                                            backgroundColor = Theme.materialColors.primary,
+                                            contentColor = Theme.materialColors.onPrimary
+                                        )
+                                    ) {
+                                        Text("Añadir Programador")
+                                    }
+                                }
+                            ) {
+                                if (projectProgrammers.isEmpty()) {
                                     Text(
                                         text = "No hay programadores asignados",
                                         style = MaterialTheme.typography.body1,
@@ -80,7 +98,7 @@ class ProjectDetailScreen(private val project: Project) : Screen, KoinComponent 
                                     Column(
                                         verticalArrangement = Arrangement.spacedBy(8.dp)
                                     ) {
-                                        programmers.forEach { programmer ->
+                                        projectProgrammers.forEach { programmer ->
                                             Card(
                                                 backgroundColor = Theme.colors.surfaceContainerHigh,
                                                 elevation = 0.dp,
@@ -137,8 +155,75 @@ class ProjectDetailScreen(private val project: Project) : Screen, KoinComponent 
                             }
                         }
                     }
+
+                    if (showAssignProgrammerDialog) {
+                        AssignProgrammerDialog(
+                            availableProgrammers = availableProgrammers,
+                            onProgrammerSelected = { programmerId ->
+                                viewModel.assignProgrammerToProject(programmerId)
+                            },
+                            onDismiss = { showAssignProgrammerDialog = false }
+                        )
+                    }
                 }
             }
         }
     }
+}
+
+@Composable
+private fun AssignProgrammerDialog(
+    availableProgrammers: List<Programmer>,
+    onProgrammerSelected: (Int) -> Unit,
+    onDismiss: () -> Unit
+) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = {
+            Text(
+                "Asignar Programador",
+                style = MaterialTheme.typography.h6,
+                color = Theme.materialColors.onBackground
+            )
+        },
+        text = {
+            if (availableProgrammers.isEmpty()) {
+                Text(
+                    "No hay programadores disponibles para asignar",
+                    color = Theme.colors.textSecondary
+                )
+            } else {
+                Column {
+                    availableProgrammers.forEach { programmer ->
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable {
+                                    onProgrammerSelected(programmer.id)
+                                    onDismiss()
+                                }
+                                .padding(vertical = 8.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = programmer.name,
+                                color = Theme.materialColors.onBackground,
+                                style = MaterialTheme.typography.body1
+                            )
+                        }
+                    }
+                }
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = onDismiss) {
+                Text(
+                    "Cancelar",
+                    color = Theme.materialColors.primary
+                )
+            }
+        },
+        backgroundColor = Theme.colors.surfaceContainer,
+        shape = RoundedCornerShape(16.dp)
+    )
 }

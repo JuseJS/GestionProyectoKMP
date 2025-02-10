@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
-import data.store.UserStore
+import domain.model.Programmer
 import domain.model.Project
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -17,7 +17,6 @@ import presentation.components.BaseScreen
 import presentation.components.ContentCard
 import presentation.theme.Theme
 import presentation.viewmodel.ProjectDetailViewModel
-import data.network.rest.model.responses.ProjectProgrammerResponse
 
 class CreateTaskScreen(private val project: Project) : Screen, KoinComponent {
     private val viewModel: ProjectDetailViewModel by inject()
@@ -32,13 +31,13 @@ class CreateTaskScreen(private val project: Project) : Screen, KoinComponent {
         var estimation by remember { mutableStateOf("") }
         var isError by remember { mutableStateOf(false) }
         var errorMessage by remember { mutableStateOf("") }
-        var programmers by remember { mutableStateOf<List<ProjectProgrammerResponse>>(emptyList()) }
         var selectedProgrammerId by remember { mutableStateOf<Int?>(null) }
         var expandedDropdown by remember { mutableStateOf(false) }
 
+        val projectProgrammers by viewModel.projectProgrammers.collectAsState()
+
         LaunchedEffect(Unit) {
             viewModel.initProject(project)
-            programmers = viewModel.getProjectProgrammers(project.id)
         }
 
         BaseScreen(
@@ -92,7 +91,7 @@ class CreateTaskScreen(private val project: Project) : Screen, KoinComponent {
 
                         Box(modifier = Modifier.fillMaxWidth()) {
                             OutlinedTextField(
-                                value = programmers.find { it.id == selectedProgrammerId }?.name ?: "Sin asignar",
+                                value = projectProgrammers.find { it.id == selectedProgrammerId }?.name ?: "Sin asignar",
                                 onValueChange = { },
                                 readOnly = true,
                                 label = { Text("Programador") },
@@ -121,7 +120,7 @@ class CreateTaskScreen(private val project: Project) : Screen, KoinComponent {
                                 ) {
                                     Text("Sin asignar")
                                 }
-                                programmers.forEach { programmer ->
+                                projectProgrammers.forEach { programmer ->
                                     DropdownMenuItem(
                                         onClick = {
                                             selectedProgrammerId = programmer.id
@@ -177,7 +176,13 @@ class CreateTaskScreen(private val project: Project) : Screen, KoinComponent {
                                     programmerId = selectedProgrammerId
                                 )
                                 navigator?.pop()
-                            }
+                            },
+                            colors = ButtonDefaults.buttonColors(
+                                backgroundColor = Theme.materialColors.primary,
+                                contentColor = Theme.materialColors.onPrimary
+                            ),
+                            modifier = Modifier.fillMaxWidth(),
+                            shape = RoundedCornerShape(8.dp)
                         ) {
                             Text("Crear Tarea")
                         }

@@ -7,6 +7,7 @@ import data.network.rest.model.requests.AssignProgrammerRequest
 import data.network.rest.model.requests.CreateProjectRequest
 import data.store.UserStore
 import domain.common.Result
+import domain.model.Programmer
 import domain.model.Project
 import domain.repository.ProjectRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -118,6 +119,20 @@ class ProjectRepositoryImpl(
     override suspend fun createProject(request: CreateProjectRequest): Result<Project> = try {
         val response = apiService.createProject(request)
         Result.Success(response.toDomain())
+    } catch (e: Exception) {
+        Result.Error(e)
+    }
+
+    override suspend fun getProjectProgrammers(projectId: Int): Result<List<Programmer>> = try {
+        val response = apiService.getProjectProgrammers(projectId)
+        Result.Success(response.map { it.toDomain() })
+    } catch (e: Exception) {
+        Result.Error(e)
+    }
+
+    override suspend fun getAllAvailableProgrammers(): Result<List<Programmer>> = try {
+        val response = apiService.getAllProgrammers()
+        Result.Success(response.map { it.toDomain() })
     } catch (e: Exception) {
         Result.Error(e)
     }
